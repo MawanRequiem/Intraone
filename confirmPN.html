@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konfirmasi Pembayaran - Pulsa</title>
+    <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f1f5f9;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(to right, #0ea5e9, #06b6d4);
+            color: #fff;
+        }
+
+        .btn-gradient:hover {
+            opacity: 0.85;
+        }
+
+        input {
+            color: black;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center px-4">
+    <div class="glass max-w-xl w-full p-6 rounded-xl space-y-5 shadow-lg">
+        <h2 class="text-2xl font-bold text-center text-white">Menunggu Pembayaran</h2>
+        <p class="text-center text-slate-300 text-sm">Selesaikan pembayaran sebelum waktu habis.</p>
+
+        <input type="tel" id="nomorOvo" placeholder="Masukkan nomor HP Anda"
+            class="w-full px-4 py-2 rounded-md bg-white text-black placeholder-gray-500">
+        
+            <button id="btnOvo" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-semibold py-2 mt-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                Konfirmasi melalui Aplikasi OVO
+              </button>
+
+        <div class="text-sm text-center text-slate-400">
+            Waktu tersisa: <span id="timer" class="text-white font-semibold">30:00</span>
+        </div>
+
+        <div class="text-white text-sm space-y-1 border-t border-white/10 pt-4">
+            <div class="flex justify-between"><span>Jenis Paket:</span><span id="paket">Bisnis</span></div>
+            <div class="flex justify-between"><span>Harga:</span><span id="harga">Rp200.000</span></div>
+            <div class="flex justify-between"><span>Metode:</span><span>Pulsa</span></div>
+        </div>
+
+        <button onclick="konfirmasiPembayaran()" class="btn-gradient w-full py-2 rounded-lg font-semibold">Konfirmasi
+            Pembayaran</button>
+        <button onclick="batalkanPembayaran()"
+            class="w-full mt-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 rounded-lg">Batalkan
+            Pembayaran</button>
+    </div>
+
+    <!-- Modal Gagal -->
+    <div id="modal-gagal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div class="bg-white text-gray-800 rounded-lg shadow-lg p-6 w-80 text-center space-y-3">
+            <h3 class="text-lg font-bold text-red-600">Pembayaran Gagal</h3>
+            <p class="text-sm">Waktu pembayaran telah habis.</p>
+            <button onclick="location.href='payment.html'"
+                class="w-full mt-2 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-semibold">Kembali ke
+                Payment</button>
+        </div>
+    </div>
+
+    <script>
+        function konfirmasiPembayaran() {
+            alert("Transaksi Berhasil");
+            window.location.href = "dashboard.html";
+        }
+
+        function batalkanPembayaran() {
+            const confirmCancel = confirm("Yakin ingin membatalkan pembayaran?");
+            if (confirmCancel) {
+                window.location.href = "payment.html";
+            }
+        }
+
+        let timeLeft = 30 * 60;
+        const timerEl = document.getElementById("timer");
+
+        const countdown = setInterval(() => {
+            let m = Math.floor(timeLeft / 60);
+            let s = timeLeft % 60;
+            timerEl.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                document.getElementById("modal-gagal").classList.remove("hidden");
+            }
+            timeLeft--;
+        }, 1000);
+
+        // Tombol OVO hanya bisa ditekan sekali
+// Validasi tombol OVO aktif jika input tidak kosong
+const btnOvo = document.getElementById('btnOvo');
+const nomorOvo = document.getElementById('nomorOvo');
+
+let ovoClicked = false;
+
+// Aktifkan tombol hanya jika input tidak kosong
+nomorOvo.addEventListener('input', function () {
+    if (nomorOvo.value.trim() !== "") {
+        btnOvo.disabled = false;
+    } else {
+        btnOvo.disabled = true;
+    }
+});
+
+// Saat tombol ditekan
+btnOvo.addEventListener('click', function () {
+    const nomor = nomorOvo.value.trim();
+
+    // Validasi format nomor HP (mulai dari 08 dan panjang >= 10 digit angka)
+    const hpRegex = /^08\d{8,}$/;
+    if (!hpRegex.test(nomor)) {
+        alert("Format nomor HP tidak valid. Pastikan dimulai dari 08 dan minimal 10 digit angka.");
+        return;
+    }
+
+    // Cegah klik ulang
+    if (!ovoClicked) {
+        ovoClicked = true;
+        alert("Silahkan cek OVO Anda");
+        btnOvo.disabled = true;
+        btnOvo.classList.add("opacity-50", "cursor-not-allowed");
+    }
+});
+
+
+
+        function konfirmasiPembayaran() {
+            alert("Transaksi Berhasil");
+            localStorage.removeItem('konfirmasiData');
+            window.location.href = "dashboard.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const data = JSON.parse(localStorage.getItem('konfirmasiData'));
+            if (data) {
+                document.getElementById("paket").textContent = data.paket;
+                document.getElementById("harga").textContent = data.harga;
+            }
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (confirm('Apakah Anda yakin ingin keluar?')) {
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userPhone');
+      window.location.href = 'login.html';
+    }
+  });
+
+  // Konfirmasi Logout - Mobile
+  document.getElementById('logoutButtonMobile').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (confirm('Apakah Anda yakin ingin keluar?')) {
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userPhone');
+      window.location.href = 'login.html';
+    }
+  });
+    </script>
+</body>
+
+</html>

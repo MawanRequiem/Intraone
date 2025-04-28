@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Pengguna - IntraOne</title>
+  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/index.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #f1f5f9;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .btn-gradient {
+      background: linear-gradient(to right, #0ea5e9, #06b6d4);
+      color: #fff;
+    }
+
+    .btn-gradient:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="bg-sky-900 py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex items-center justify-between">
+      <a class="navbar-brand text-xl font-bold" href="#">
+        <img src="media/logo-white.png" class="h-5 md:h-10" alt="Logo">
+      </a>
+
+      <!-- Hamburger Icon (mobile only) -->
+      <button class="md:hidden focus:outline-none" id="menu-toggle">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+          </path>
+        </svg>
+      </button>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="dashboard.html" class="text-white hover:opacity-80 transition">Beranda</a>
+        <a href="profil.html" class="text-white font-semibold">Profil</a>
+        <a href="#.html" id="logoutButton" class="border border-white text-white px-4 py-2 rounded-md hover:!text-black hover:bg-white transition duration-300
+          ">
+          Keluar
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation (hidden by default) -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pt-4 pb-6 space-y-3">
+      <a href="dashboard.html" class="block text-white hover:opacity-80 transition">Beranda</a>
+      <a href="profil.html" class="block text-white hover:opacity-80 transition">Profil</a>
+      <a href="#.html" id="logoutButtonMobile" class="block text-white hover:opacity-80transition">Keluar</a>
+    </div>
+  </nav>
+
+  <!-- KONTEN PROFIL -->
+  <section class="container mx-auto px-4 py-12">
+    <div class="glass p-6 md:p-10 max-w-3xl mx-auto rounded-lg shadow-lg" data-aos="fade-up">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Profil Pengguna</h2>
+      <div class="space-y-4 text-sm sm:text-base">
+        <p><strong>Nama:</strong> <span id="profilNama">-</span></p>
+        <p><strong>Email:</strong> <span id="profilEmail">-</span></p>
+        <p><strong>No. HP:</strong> <span id="profilHP">-</span></p>
+        <p><strong>Tempat, Tanggal Lahir:</strong> <span id="profilTTL">-</span></p>
+        <p><strong>No KTP:</strong> <span id="profilKTP">-</span></p>
+        <p><strong>Alamat:</strong> <span id="profilAlamat">-</span></p>
+        <p><strong>Kota / Kecamatan:</strong> <span id="profilWilayah">-</span></p>
+        <p><strong>Paket Berlangganan:</strong> <span id="profilPaket">-</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="absolute bottom-0 w-full text-center text-slate-400 text-xs py-6">
+    &copy; 2025 IntraOne. All Rights Reserved.
+  </footer>
+
+  <!-- Bootstrap + AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    AOS.init({ duration: 1000 });
+
+    const userEmail = localStorage.getItem("userEmail");
+    const userPhone = localStorage.getItem("userPhone");
+    const daftarPelanggan = JSON.parse(localStorage.getItem("daftarPelanggan")) || [];
+
+    const user = daftarPelanggan.find(pelanggan => pelanggan.email === userEmail && pelanggan.noHP === userPhone);
+
+    if (user) {
+      document.getElementById("profilNama").innerText = user.nama || "-";
+      document.getElementById("profilEmail").innerText = user.email || "-";
+      document.getElementById("profilHP").innerText = user.noHP || "-";
+      document.getElementById("profilTTL").innerText = (user.tempatLahir || "-") + ", " + (user.tanggalLahir || "-");
+      document.getElementById("profilKTP").innerText = user.noKTP || "-";
+      document.getElementById("profilAlamat").innerText = user.alamat || "-";
+      document.getElementById("profilWilayah").innerText = `${user.kota || "-"} / ${user.kecamatan || "-"}`;
+      document.getElementById("profilPaket").innerText = `${user.kategoriPaket || "-"} - ${user.paketInternet || "-"}`;
+    } else {
+      alert("Data pengguna tidak ditemukan. Silakan login kembali.");
+      window.location.href = "login.html";
+    }
+
+    // Toggle mobile menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.getElementById('logoutButton').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (confirm('Apakah Anda yakin ingin keluar?')) {
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userPhone');
+      window.location.href = 'login.html';
+    }
+  });
+
+  // Konfirmasi Logout - Mobile
+  document.getElementById('logoutButtonMobile').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (confirm('Apakah Anda yakin ingin keluar?')) {
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userPhone');
+      window.location.href = 'login.html';
+    }
+  });
+  </script>
+</body>
+
+</html>

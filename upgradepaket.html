@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upgrade Paket - IntraOne</title>
+  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+  <link rel="stylesheet" href="css/index.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #f1f5f9;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .glass:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn-gradient {
+      background: linear-gradient(to right, #0ea5e9, #06b6d4);
+      color: #fff;
+    }
+
+    .btn-gradient:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="bg-sky-900 py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex items-center justify-between">
+      <a class="navbar-brand text-xl font-bold" href="#">
+        <img src="media/logo-white.png" class="h-5 md:h-10" alt="Logo">
+      </a>
+
+      <button class="md:hidden focus:outline-none" id="menu-toggle">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+          </path>
+        </svg>
+      </button>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="dashboard.html" class="text-white font-semibold">Beranda</a>
+        <a href="profil.html" class="text-white hover:opacity-80 transition">Profil</a>
+        <a href="#.html" id="logoutButton" class="border border-white text-white px-4 py-2 rounded-md hover:!text-black hover:bg-white transition duration-300
+          ">
+          Keluar
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation (hidden by default) -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pt-4 pb-6 space-y-3">
+      <a href="dashboard.html" class="block text-white hover:opacity-80 transition">Beranda</a>
+      <a href="profil.html" class="block text-white hover:opacity-80 transition">Profil</a>
+      <a href="#.html" id="logoutButtonMobile" class="block text-white hover:opacity-80transition">Keluar</a>
+    </div>
+  </nav>
+
+  <!-- Upgrade Section -->
+  <section class="pt-16 pb-16 px-4">
+    <div class="container">
+      <div class="glass p-8 md:p-12 text-center mx-auto max-w-3xl rounded-3xl" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Upgrade Paket Internet</h2>
+        <p class="text-lg text-slate-300">Pilih paket baru untuk meningkatkan kecepatan internetmu!</p>
+      </div>
+
+      <div class="glass p-8 mt-12 max-w-3xl mx-auto rounded-3xl" data-aos="fade-up">
+        <form id="upgradeForm" class="space-y-6">
+          <!-- Paket Pilihan -->
+          <div>
+            <label for="paketBaru" class="block text-lg font-medium mb-2">Pilih Paket Baru</label>
+            <select id="paketBaru" class="form-select bg-sky-900/40 text-white border border-sky-600">
+              <option value="">-- Pilih Paket --</option>
+              <option value="Basic 50 Mbps" data-harga="150000">Basic 50 Mbps - Rp 150.000</option>
+              <option value="Pro 100 Mbps" data-harga="250000">Pro 100 Mbps - Rp 250.000</option>
+              <option value="Ultra 200 Mbps" data-harga="400000">Ultra 200 Mbps - Rp 400.000</option>
+            </select>
+          </div>
+
+          <!-- Durasi (Dropdown) -->
+          <div>
+            <label for="durasiBaru" class="block text-lg font-medium mb-2">Durasi (Bulan)</label>
+            <select id="durasiBaru"
+              class="form-select bg-sky-900/40 text-white border border-sky-600 focus:bg-sky-900/40 focus:text-white focus:border-sky-400 focus:outline-none">
+              <option value="1">1 Bulan</option>
+              <option value="3">3 Bulan</option>
+              <option value="6">6 Bulan</option>
+              <option value="12">12 Bulan</option>
+            </select>
+          </div>
+
+
+
+          <!-- Total Pembayaran -->
+          <div class="text-center">
+            <p class="text-lg">Total Bayar: <span id="totalBayar" class="font-semibold text-sky-400">Rp 0</span></p>
+          </div>
+
+          <!-- Tombol -->
+          <div class="flex justify-center gap-4">
+            <a href="dashboard.html" class="btn btn-secondary px-4 py-2 rounded-lg">Batal</a>
+            <button type="button" class="btn-gradient px-4 py-2 rounded-lg" onclick="prosesUpgrade()">Lanjutkan ke Pembayaran</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="absolute bottom-0 w-full text-center text-slate-400 text-xs py-6 mt-16">
+    &copy; 2025 IntraOne. All Rights Reserved.
+  </footer>
+
+  <!-- Bootstrap + AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    AOS.init({ duration: 1000 });
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('animate-slide-down');
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('animate-slide-down');
+      }
+    });
+
+    // Ambil data user dari localStorage (pastikan ini konsisten dengan yang lain)
+    const daftarPelanggan = JSON.parse(localStorage.getItem('daftarPelanggan')) || [];
+    const loggedInEmail = localStorage.getItem('userEmail');
+    const loggedInPhone = localStorage.getItem('userPhone');
+    const userIndex = daftarPelanggan.findIndex(item => item.email === loggedInEmail && item.noHP === loggedInPhone);
+    const user = daftarPelanggan[userIndex];
+
+    if (!user) {
+      window.location.href = 'login.html';
+    }
+
+    
+
+    // Update total bayar
+    const paketSelect = document.getElementById('paketBaru');
+    const durasiInput = document.getElementById('durasiBaru');
+    const totalBayarSpan = document.getElementById('totalBayar');
+
+    paketSelect.addEventListener('change', updateTotalBayar);
+    durasiInput.addEventListener('input', updateTotalBayar);
+
+    function updateTotalBayar() {
+      const selectedOption = paketSelect.options[paketSelect.selectedIndex];
+      const harga = parseInt(selectedOption.getAttribute('data-harga') || 0);
+      const durasi = parseInt(durasiInput.value) || 1;
+      const total = harga * durasi;
+
+      totalBayarSpan.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+    }
+
+    // Proses upgrade dan redirect ke halaman pembayaran
+    function prosesUpgrade() {
+      const selectedOption = paketSelect.options[paketSelect.selectedIndex];
+      const paketBaru = selectedOption.value;
+      const hargaBaru = parseInt(selectedOption.getAttribute('data-harga') || 0);
+      const durasiBaru = parseInt(durasiInput.value) || 1;
+      const totalBayar = hargaBaru * durasiBaru;
+
+      if (!paketBaru) {
+        alert('Silakan pilih paket terlebih dahulu!');
+        return;
+      }
+
+      // Update data user
+      user.paketInternet = paketBaru;
+      user.durasiBerlangganan = durasiBaru;
+      user.totalHarga = totalBayar;
+
+      daftarPelanggan[userIndex] = user;
+      localStorage.setItem('daftarPelanggan', JSON.stringify(daftarPelanggan));
+
+      // Simpan data upgrade buat pembayaran
+      localStorage.setItem('upgradeData', JSON.stringify({
+        paket: paketBaru,
+        durasi: durasiBaru,
+        harga: totalBayar
+      }));
+
+      // Redirect ke halaman payment.html
+      window.location.href = 'paymentupgrade.html';
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login IntraOne</title>
+  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0a0a0a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .glass {
+      background: rgba(30, 30, 30, 0.8);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .animated-gradient {
+      background: linear-gradient(-45deg, #0ea5e9, #334155, #06b6d4, #0f172a);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+<body class="animated-gradient">
+  <div class="glass w-[90%] max-w-md p-10 rounded-2xl text-white text-center relative" data-aos="zoom-in">
+    <h1 class="text-4xl font-bold mb-4">Selamat Datang</h1>
+    <p class="text-sm mb-8">Masuk untuk menikmati layanan terbaik dari IntraOne</p>
+    <form id="loginForm" class="flex flex-col space-y-4">
+      <input type="email" id="emailLogin" placeholder="Masukkan Email" class="px-4 py-3 rounded-md text-black" required />
+      <input type="tel" id="phoneLogin" placeholder="Masukkan Nomor HP" class="px-4 py-3 rounded-md text-black" required />
+      <button type="submit" class="bg-gradient-to-r from-sky-600 to-teal-500 hover:opacity-80 py-3 rounded-md font-semibold transition shadow-md">Masuk</button>
+    </form>
+    <p class="text-xs mt-4">Belum ada Paket? <a href="index.html" class="text-sky-400 hover:underline">Beli Sekarang</a></p>
+    <p id="loginMessage" class="mt-4 text-sm"></p>
+  </div>
+
+  
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000 });
+
+    const loginForm = document.getElementById('loginForm');
+const emailLogin = document.getElementById('emailLogin');
+const phoneLogin = document.getElementById('phoneLogin');
+const loginMessage = document.getElementById('loginMessage');
+
+// Login logic ambil dari daftarPelanggan
+loginForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const emailInput = emailLogin.value.trim();
+  const phoneInput = phoneLogin.value.trim();
+
+  const daftarPelanggan = JSON.parse(localStorage.getItem("daftarPelanggan")) || [];
+
+  const pelangganDitemukan = daftarPelanggan.find(pelanggan => 
+    pelanggan.email === emailInput && pelanggan.noHP === phoneInput
+  );
+
+  if (pelangganDitemukan) {
+    loginMessage.textContent = 'Login berhasil!';
+    loginMessage.classList.add('text-green-400');
+    loginMessage.classList.remove('text-red-400');
+
+
+    localStorage.setItem('userEmail', pelangganDitemukan.email);
+    localStorage.setItem('userPhone', pelangganDitemukan.noHP);
+
+    window.location.href = 'dashboard.html';
+  } else {
+    loginMessage.textContent = 'Email atau Nomor HP salah!';
+    loginMessage.classList.add('text-red-400');
+    loginMessage.classList.remove('text-green-400');
+  }
+});
+  </script>
+</body>
+</html>

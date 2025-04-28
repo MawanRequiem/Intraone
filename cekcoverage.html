@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>IntraOne</title>
+        <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+        <!-- Tailwind CSS via CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/index.css" />
+
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+            rel="stylesheet" />
+
+        <!-- Slick Slider CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+        <style>
+
+
+      .slick-slide {
+    display: flex !important;
+    justify-content: center;
+  }
+
+      /* Extra styles for iframe window */
+      .iframe-container {
+        @apply bg-white rounded-xl shadow-lg p-6;
+      }
+
+      /* Slider images */
+      .slider-img {
+        width: 150px;
+        margin: 0 auto;
+      }
+    </style>
+    </head>
+
+    <body class="bg-white text-gray-800">
+        <!-- NAVBAR -->
+        <nav class="bg-white py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
+          <div class="container mx-auto flex items-center justify-between">
+            <a class="navbar-brand text-xl font-bold" href="#">
+              <img src="media/logo.png" class="h-5 md:h-10" alt="Logo">
+            </a>
+      
+            <!-- Hamburger Icon (mobile only) -->
+            <button class="md:hidden focus:outline-none" id="menu-toggle">
+              <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+              </svg>
+            </button>
+      
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-6">
+              <a href="index.html" class="text-gray-500 hover:text-sky-700 transition">Beranda</a>
+              <a href="paket.html" class="text-gray-500 hover:text-sky-700 transition">Paket</a>
+              <a href="kontakkami.html" class="text-gray-500 hover:text-sky-700 transition">Kontak</a>
+              <a href="login.html" class="text-gray-500 hover:text-sky-700 transition">Pembayaran</a>
+              <a href="cekcoverage.html"
+                class="bg-gradient-to-r from-sky-700 to-teal-500 text-white px-4 py-2 rounded-md hover:opacity-80 transition duration-300">
+                Cek Coverage
+              </a>
+            </div>
+          </div>
+      
+          <!-- Mobile Navigation (hidden by default) -->
+          <div id="mobile-menu" class="md:hidden hidden px-4 pt-4 pb-6 space-y-3">
+            <a href="index.html" class="block text-gray-700 hover:text-sky-700 transition">Beranda</a>
+            <a href="paket.html" class="block text-gray-700 hover:text-sky-700 transition">Paket</a>
+            <a href="kontakkami.html" class="block text-gray-700 hover:text-sky-700 transition">Kontak</a>
+            <a href="login.html" class="block text-gray-700 hover:text-sky-700 transition">Pembayaran</a>
+            <a href="cekcoverage.html" class="block text-gray-700 hover:text-sky-700 transition">Cek Coverage</a>
+          </div>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main class="container mx-auto px-4 py-10">
+            <!-- Judul -->
+            <div class="text-center mb-8">
+                <h2
+                    class="text-3xl md:text-4xl font-bold text-sky-700 mb-2">
+                    Cek Coverage IntraOne
+                </h2>
+                <p class="text-gray-500">Cari tahu apakah jaringan kami sudah
+                    mencakup area kamu!</p>
+            </div>
+
+            <!-- Iframe Window -->
+            <div class="iframe-container mx-auto max-w-5xl">
+                <iframe
+                    allow="geolocation"
+                    frameborder="0"
+                    src="https://api.myarsyila.id/index.php?_route=maps/fo"
+                    height="600"
+                    width="100%"
+                    class="rounded-lg"></iframe>
+            </div>
+        </main>
+
+        <!-- SLIDER AREA -->
+        <section class="py-10">
+            <div class="container mx-auto px-4" data-aos="fade-up" data-aos-delay="0">
+              <h3 class="text-center text-2xl font-semibold text-gray-700 mb-12">Partner
+                Kami</h3>
+        
+              <!-- Slick Slider Wrapper -->
+              <div class="brand-active flex items-center">
+                <!-- Partner Logos -->
+                <div class="single-brand px-4">
+                  <img src="media/partner1.png" alt="Partner 1" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner2.png" alt="Partner 2" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner3.png" alt="Partner 3" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner4.png" alt="Partner 4" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner5.png" alt="Partner 5" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner6.png" alt="Partner 6" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner1.png" alt="Partner 1" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner2.png" alt="Partner 2" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner3.png" alt="Partner 3" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner4.png" alt="Partner 4" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner5.png" alt="Partner 5" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner6.png" alt="Partner 6" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner1.png" alt="Partner 1" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner2.png" alt="Partner 2" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner3.png" alt="Partner 3" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner4.png" alt="Partner 4" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner5.png" alt="Partner 5" class="h-300 mx-auto">
+                </div>
+                <div class="single-brand px-4">
+                  <img src="media/partner6.png" alt="Partner 6" class="h-300 mx-auto">
+                </div>
+              </div>
+            </div>
+          </section>
+
+        <!-- FOOTER -->
+
+<!-- MODERN FOOTER -->
+<footer class="bg-slate-100 text-gray-800 py-16">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start space-y-12 md:space-y-0">
+      <div class="flex flex-col space-y-6 md:w-1/3">
+        <a href="#">
+          <img src="media/logo.png" class="h-5 md:h-10" alt="Logo" />
+        </a>
+        <p class="text-sm text-gray-500">Solusi Integrasi Digital Terdepan</p>
+      </div>
+      <div class="flex flex-col space-y-4 md:w-1/3">
+        <h4 class="font-semibold text-sky-700 text-lg">Informasi Kontak</h4>
+        <div class="text-base space-y-1">
+          <p><span class="font-semibold">Head Office</span></p>
+          <p>Grand Plaza Bekasi</p>
+          <p>Jl. Mayor Matthew No. 63</p>
+          <p>Bekasi Timur - Bekasi 169420</p>
+        </div>
+        <div class="flex space-x-4 mt-4">
+          <a href="tel:+622150919981" aria-label="Telepon"
+            class="w-10 h-10 rounded-full bg-sky-600 flex items-center justify-center hover:bg-sky-700 transition">
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79a15.054 15.054 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1v3.5a1 1 0 01-1 1C10.52 22 2 13.48 2 3.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="flex flex-col md:w-1/3">
+        <h4 class="font-semibold text-sky-700 text-lg">Kantor Cabang Kami</h4>
+        <p class="text-base mt-4 leading-relaxed">Depok | Bogor | Bekasi</p>
+      </div>
+    </div>
+    <div
+      class="mt-12 border-t border-gray-300 pt-6 text-center text-sm text-gray-600 flex flex-col space-y-2 md:flex-row md:justify-center md:space-y-0 md:space-x-4">
+      <p>&copy; 2025 IntraOne. All rights reserved.</p>
+      <a href="kebijakanprivasi.html" class="text-indigo-600 hover:underline">Kebijakan Privasi</a>
+      <a href="persyaratanlayanan.html" class="text-indigo-600 hover:underline">Persyaratan Layanan</a>
+    </div>
+  </footer>
+  
+
+        <!-- SCRIPTS -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Slick Slider JS -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+        <script>
+      // Mobile menu toggle
+            const menuToggle = document.getElementById("menu-toggle");
+            const mobileMenu = document.getElementById("mobile-menu");
+
+            menuToggle.addEventListener("click", () => {
+                mobileMenu.classList.toggle("hidden");
+                mobileMenu.classList.toggle("animate-slide-down");
+            });
+
+            //Slick Script
+                $(document).ready(function(){
+                $('.brand-active').slick({
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                    arrows: false,
+                    dots: false,
+                    infinite: true,
+                    speed: 1000,
+                    pauseOnHover: false,
+                    responsive: [
+                    {
+                        breakpoint: 1280,
+                        settings: { slidesToShow: 4 }
+                    },
+                    {
+                        breakpoint: 1024,
+                        settings: { slidesToShow: 3 }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: { slidesToShow: 2 }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: { slidesToShow: 1 }
+                    }
+                    ]
+                });
+                });
+    </script>
+    </body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paket Langganan Wifi | IntraOne</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+</head>
+
+<body class="bg-white text-gray-800">
+
+  <!-- NAVBAR -->
+  <nav class="bg-white py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex items-center justify-between">
+      <a class="navbar-brand text-xl font-bold" href="#">
+        <img src="media/logo.png" class="h-5 md:h-10" alt="Logo">
+      </a>
+
+      <!-- Hamburger Icon (mobile only) -->
+      <button class="md:hidden focus:outline-none" id="menu-toggle">
+        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+          </path>
+        </svg>
+      </button>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="index.html" class="text-gray-500 hover:text-sky-700 transition">Beranda</a>
+        <a href="paket.html" class="text-sky-700 font-semibold">Paket</a>
+        <a href="kontakkami.html" class="text-gray-500 hover:text-sky-700 transition">Kontak</a>
+        <a href="login.html" class="text-gray-500 hover:text-sky-700 transition">Pembayaran</a>
+        <a href="cekcoverage.html"
+          class="bg-gradient-to-r from-sky-700 to-teal-500 text-white px-4 py-2 rounded-md hover:opacity-80 transition duration-300">
+          Cek Coverage
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation (hidden by default) -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pt-4 pb-6 space-y-3">
+      <a href="index.html" class="block text-gray-700 hover:text-sky-700 transition">Beranda</a>
+      <a href="paket.html" class="block text-gray-700 hover:text-sky-700 transition">Paket</a>
+      <a href="kontakkami.html" class="block text-gray-700 hover:text-sky-700 transition">Kontak</a>
+      <a href="login.html" class="block text-gray-700 hover:text-sky-700 transition">Pembayaran</a>
+      <a href="cekcoverage.html" class="block text-gray-700 hover:text-sky-700 transition">Cek Coverage</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="bg-sky-700 py-20 text-white text-center px-3">
+    <h1 class="text-2xl md:text-4xl font-bold mb-4">Pilih Paket Internet Sesuai Kebutuhan Anda</h1>
+    <p class="text-lg ">IntraOne menawarkan paket reguler, gamer, dan bisnis dengan kecepatan tinggi
+      dan harga terjangkau.</p>
+  </section>
+
+  <!-- PAKET REGULER -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-sky-700 mb-10" data-aos="fade-up">Paket Reguler</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- CARD -->
+        <div class="bg-white rounded-2xl shadow-md w-full" data-aos="fade-up">
+          <img src="media/paketreg1.png" alt="Basic Plan" class="w-full h-48 object-cover rounded-t-2xl">
+          <div class="p-6 text-center">
+            <h3 class="text-xl font-semibold text-sky-600">Basic Plan</h3>
+            <p class="text-sm text-gray-500 mb-2">Speed up to 20 Mbps</p>
+            <p class="text-3xl font-bold text-gray-800 mb-3">Rp 150.000<span class="text-base font-medium">
+                /Bulan</span></p>
+            <p class="text-sm text-left text-gray-600 mb-3">Paket ideal untuk penggunaan sehari-hari, browsing ringan,
+              sosial
+              media, dan video streaming kualitas SD.</p>
+            <button onclick="window.location.href='registrasi.html'"
+              class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold px-4 py-2 rounded-lg mb-4">Langganan
+              Sekarang</button>
+            <hr>
+            <h3 class="text-xl text-left font-semibold text-sky-600 mt-3">Benefit yang didapat</h3>
+            <div class="text-left text-sm text-gray-600">
+              <ul class="space-y-2 mt-2">
+                <li>📶 Gratis biaya pemasangan untuk pelanggan baru</li>
+                <li>📦 WiFi router standar tanpa biaya tambahan</li>
+                <li>🕐 Layanan pelanggan 24/7</li>
+                <li>🆓 Bebas kuota bulanan (Unlimited)</li>
+                <li>🎯 Ideal untuk penggunaan sehari-hari, sosial media, streaming SD</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md w-full" data-aos="fade-up">
+          <img src="media/paketreg2.png" alt="Basic Plan" class="w-full h-48 object-cover rounded-t-2xl">
+          <div class="p-6 text-center">
+            <h3 class="text-xl font-semibold text-sky-600">Standard Plan</h3>
+            <p class="text-sm text-gray-500 mb-2">Speed up to 75 Mbps</p>
+            <p class="text-3xl font-bold text-gray-800 mb-3">Rp 300.000<span class="text-base font-medium">
+                /Bulan</span></p>
+            <p class="text-sm text-left text-gray-600 mb-3">Cocok untuk keluarga aktif yang sering melakukan streaming HD, belajar online, dan video call berkualitas tinggi.</p>
+            <button onclick="window.location.href='registrasi.html'"
+            class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold px-4 py-2 rounded-lg mb-4">Langganan Sekarang</button>
+            <hr>
+            <h3 class="text-xl text-left font-semibold text-sky-600 mt-3">Benefit yang didapat</h3>
+            <div class="text-left text-sm text-gray-600">
+              <ul class="space-y-2 mt-2">
+                <li>📶 Gratis biaya pemasangan untuk pelanggan baru</li>
+                <li>📦 WiFi router standar tanpa biaya tambahan</li>
+                <li>🕐 Layanan pelanggan 24/7</li>
+                <li>🆓 Bebas kuota bulanan (Unlimited)</li>
+                <li>📺 Streaming HD lebih lancar dan stabil</li>
+                <li>👨‍👩‍👧‍👦 Ideal untuk penggunaan keluarga dengan banyak perangkat</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md w-full" data-aos="fade-up">
+          <img src="media/paketreg3.png" alt="Basic Plan" class="w-full h-48 object-cover rounded-t-2xl">
+          <div class="p-6 text-center">
+            <h3 class="text-xl font-semibold text-sky-600">MaxOne Plan</h3>
+            <p class="text-sm text-gray-500 mb-2">Speed up to 100 Mbps</p>
+            <p class="text-3xl font-bold text-gray-800 mb-3">Rp 400.000<span class="text-base font-medium">
+                /Bulan</span></p>
+            <p class="text-sm text-left text-gray-600 mb-3">Memberikan kecepatan tinggi untuk multitasking digital seperti streaming 4K, upload konten, dan work-from-home.</p>
+            <button onclick="window.location.href='registrasi.html'"
+            class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold px-4 py-2 rounded-lg mb-4">Langganan Sekarang</button>
+            <hr>
+            <h3 class="text-xl text-left font-semibold text-sky-600 mt-3">Benefit yang didapat</h3>
+            <div class="text-left text-sm text-gray-600">
+              <ul class="space-y-2 mt-2">
+                <li>📶 Gratis biaya pemasangan untuk pelanggan baru</li>
+                <li>📦 WiFi router premium tanpa biaya tambahan</li>
+                <li>🕐 Layanan pelanggan 24/7</li>
+                <li>🆓 Bebas kuota bulanan (Unlimited)</li>
+                <li>📶 Jaringan lebih stabil untuk aktivitas intensif</li>
+                <li>🎥 Ideal untuk streaming 4K dan penggunaan profesional</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PAKET GAMER -->
+  <section class="py-16 bg-sky-50">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-purple-700 mb-10" data-aos="fade-up">Paket Gamer</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 m lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl shadow-md w-full" data-aos="fade-up">
+          <img src="media/paketgame1.png" alt="Basic Plan" class="w-full h-48 object-cover rounded-t-2xl">
+          <div class="p-6 text-center">
+            <h3 class="text-xl font-semibold text-purple-600">Gamer Basic</h3>
+            <p class="text-sm text-gray-500 mb-2">Speed up to 75 Mbps</p>
+            <p class="text-3xl font-bold text-gray-800 mb-3">Rp 350.000<span class="text-base font-medium">
+                /Bulan</span></p>
+            <p class="text-sm text-left text-gray-600 mb-3">Dirancang khusus untuk kebutuhan gaming ringan hingga menengah dengan latency rendah.</p>
+            <button onclick="window.location.href='registrasi.html'"
+            class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold px-4 py-2 rounded-lg mb-4">Langganan Sekarang</button>
+            <hr>
+            <h3 class="text-xl text-left font-semibold text-purple-600 mt-3">Benefit yang didapat</h3>
+            <div class="text-left text-sm text-gray-600">
+              <ul class="space-y-2 mt-2">
+                <li>📶 Gratis biaya pemasangan untuk pelanggan baru</li>
+                <li>📦 WiFi router standar tanpa biaya tambahan</li>
+                <li>🕐 Layanan pelanggan 24/7</li>
+                <li>🆓 Bebas kuota bulanan (Unlimited)</li>
+                <li>💻 Cocok untuk streaming & live game casual</li>
+                <li>⚡ Ping stabil untuk pengalaman gaming kompetitif</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md w-full" data-aos="fade-up">
+          <img src="media/paketgame2.png" alt="Basic Plan" class="w-full h-48 object-cover rounded-t-2xl">
+          <div class="p-6 text-center">
+            <h3 class="text-xl font-semibold text-purple-600">Gamer Pro</h3>
+            <p class="text-sm text-gray-500 mb-2">Speed up to 150 Mbps</p>
+            <p class="text-3xl font-bold text-gray-800 mb-3">Rp 500.000<span class="text-base font-medium">
+                /Bulan</span></p>
+            <p class="text-sm text-left text-gray-600 mb-3">Paket unggulan dengan kecepatan dan stabilitas maksimal untuk pro gamer dan streamer.</p>
+            <button onclick="window.location.href='registrasi.html'"
+            class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold px-4 py-2 rounded-lg mb-4">Langganan Sekarang</button>
+            <hr>
+            <h3 class="text-xl text-left font-semibold text-purple-600 mt-3">Benefit yang didapat</h3>
+            <div class="text-left text-sm text-gray-600">
+              <ul class="space-y-2 mt-2">
+                <li>📶 Gratis biaya pemasangan untuk pelanggan baru</li>
+                <li>📦 WiFi router premium tanpa biaya tambahan</li>
+                <li>🎮 Latency super rendah dan ping stabil</li>
+                <li>🕐 Layanan pelanggan 24/7</li>
+                <li>🆓 Bebas kuota bulanan (Unlimited)</li>
+                <li>🔴 Streaming game tanpa buffering</li>
+                <li>⚔️ Ideal untuk turnamen online & konten creator</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- PAKET BISNIS -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-teal-600 mb-10" data-aos="fade-up">Paket Bisnis</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl shadow-md w-full" data-aos="fade-up">
+          <img src="media/paketbisnis1.png" alt="Basic Plan" class="w-full h-48 object-cover rounded-t-2xl">
+          <div class="p-6 text-center">
+            <h3 class="text-xl font-semibold text-teal-600">Bisnis Starter</h3>
+            <p class="text-sm text-gray-500 mb-2">Speed up to 100 Mbps</p>
+            <p class="text-3xl font-bold text-gray-800 mb-3">Rp 600.000<span class="text-base font-medium">
+                /Bulan</span></p>
+            <p class="text-sm text-left text-gray-600 mb-3">Solusi koneksi andal untuk bisnis skala kecil hingga menengah, mendukung aktivitas operasional harian.</p>
+            <button onclick="window.location.href='registrasi.html'"
+            class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded-lg mb-4">Langganan Sekarang</button>
+            <hr>
+            <h3 class="text-xl text-left font-semibold text-teal-600 mt-3">Benefit yang didapat</h3>
+            <div class="text-left text-sm text-gray-600">
+              <ul class="space-y-2 mt-2">
+                <li>📶 Gratis biaya pemasangan untuk pelanggan baru</li>
+                <li>📦 WiFi router premium tanpa biaya tambahan</li>
+                <li>🖥️ Dukungan perangkat tambahan sesuai kebutuhan</li>
+                <li>🕐 Layanan pelanggan 24/7</li>
+                <li>🆓 Bebas kuota bulanan (Unlimited)</li>
+                <li>🧑‍💼 Cocok untuk kasir online, CCTV, dan POS system</li>
+                <li>☁️ Support untuk cloud-based application</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md w-full" data-aos="fade-up">
+          <img src="media/paketbisnis2.png" alt="Basic Plan" class="w-full h-48 object-cover rounded-t-2xl">
+          <div class="p-6 text-center">
+            <h3 class="text-xl font-semibold text-teal-600">Bisnis Pro</h3>
+            <p class="text-sm text-gray-500 mb-2">Speed up to 200 Mbps</p>
+            <p class="text-3xl font-bold text-gray-800 mb-3">Rp 1.000.000<span class="text-base font-medium">
+                /Bulan</span></p>
+            <p class="text-sm text-left text-gray-600 mb-3">Kecepatan dan stabilitas maksimal untuk bisnis profesional, coworking space, dan aktivitas digital intensif.</p>
+            <button onclick="window.location.href='registrasi.html'"
+            class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded-lg mb-4">Langganan Sekarang</button>
+            <hr>
+            <h3 class="text-xl text-left font-semibold text-teal-600 mt-3">Benefit yang didapat</h3>
+            <div class="text-left text-sm text-gray-600">
+              <ul class="space-y-2 mt-2">
+                <li>📶 Gratis biaya pemasangan untuk pelanggan baru</li>
+                <li>📦 WiFi router premium tanpa biaya tambahan</li>
+                <li>🖥️ Router bisnis high-performance</li>
+                <li>🕐 Layanan pelanggan 24/7</li>
+                <li>🆓 Bebas kuota bulanan (Unlimited)</li>
+                <li>🧑‍💼 Cocok untuk kasir online, CCTV, dan POS system</li>
+                <li>☁️ Support untuk cloud-based application</li>
+                <li>📡 Dedicated bandwidth untuk performa stabil</li>
+                <li>🔐 Aman untuk transaksi dan sistem internal bisnis</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-sky-50 text-gray-800 py-16">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start space-y-12 md:space-y-0">
+      <div class="flex flex-col space-y-6 md:w-1/3">
+        <a href="#">
+          <img src="media/logo.png" class="h-5 md:h-10" alt="Logo" />
+        </a>
+        <p class="text-sm text-gray-500">Solusi Integrasi Digital Terdepan</p>
+      </div>
+      <div class="flex flex-col space-y-4 md:w-1/3">
+        <h4 class="font-semibold text-sky-700 text-lg">Informasi Kontak</h4>
+        <div class="text-base space-y-1">
+          <p><span class="font-semibold">Head Office</span></p>
+          <p>Grand Plaza Bekasi</p>
+          <p>Jl. Mayor Matthew No. 63</p>
+          <p>Bekasi Timur - Bekasi 169420</p>
+        </div>
+        <div class="flex space-x-4 mt-4">
+          <a href="tel:+622150919981" aria-label="Telepon"
+            class="w-10 h-10 rounded-full bg-sky-600 flex items-center justify-center hover:bg-sky-700 transition">
+            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79a15.054 15.054 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1v3.5a1 1 0 01-1 1C10.52 22 2 13.48 2 3.5a1 1 0 011-1H6.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="flex flex-col md:w-1/3">
+        <h4 class="font-semibold text-sky-700 text-lg">Kantor Cabang Kami</h4>
+        <p class="text-base mt-4 leading-relaxed">Depok | Bogor | Bekasi</p>
+      </div>
+    </div>
+    <div
+      class="mt-12 border-t border-gray-300 pt-6 text-center text-sm text-gray-600 flex flex-col space-y-2 md:flex-row md:justify-center md:space-y-0 md:space-x-4">
+      <p>&copy; 2025 IntraOne. All rights reserved.</p>
+      <a href="kebijakanprivasi.html" class="text-indigo-600 hover:underline">Kebijakan Privasi</a>
+      <a href="persyaratanlayanan.html" class="text-indigo-600 hover:underline">Persyaratan Layanan</a>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.regular-slider').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: false,
+        dots: true,
+        responsive: [
+          { breakpoint: 1024, settings: { slidesToShow: 2 } },
+          { breakpoint: 768, settings: { slidesToShow: 1 } }
+        ]
+      });
+      $('.gamer-slider').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: false,
+        dots: true,
+        responsive: [
+          { breakpoint: 1024, settings: { slidesToShow: 2 } },
+          { breakpoint: 768, settings: { slidesToShow: 1 } }
+        ]
+      });
+      $('.bisnis-slider').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: false,
+        dots: true,
+        responsive: [
+          { breakpoint: 1024, settings: { slidesToShow: 2 } },
+          { breakpoint: 768, settings: { slidesToShow: 1 } }
+        ]
+      });
+      AOS.init({ duration: 1000, once: true });
+    });
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('animate-slide-down');
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('animate-slide-down');
+      }
+    });
+  </script>
+
+</body>
+
+</html>

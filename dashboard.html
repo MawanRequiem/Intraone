@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Pelanggan - IntraOne</title>
+  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/index.css" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #f1f5f9;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .glass:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-gradient {
+      background: linear-gradient(to right, #0ea5e9, #06b6d4);
+      color: #fff;
+    }
+
+    .btn-gradient:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="bg-sky-900 py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex items-center justify-between">
+      <a class="navbar-brand text-xl font-bold" href="#">
+        <img src="media/logo-white.png" class="h-5 md:h-10" alt="Logo">
+      </a>
+
+      <!-- Hamburger Icon (mobile only) -->
+      <button class="md:hidden focus:outline-none" id="menu-toggle">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+          </path>
+        </svg>
+      </button>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="dashboard.html" class="text-white font-semibold">Beranda</a>
+        <a href="profil.html" class="text-white hover:opacity-80 transition">Profil</a>
+        <a href="#.html" id="logoutButton" class="border border-white text-white px-4 py-2 rounded-md hover:!text-black hover:bg-white transition duration-300
+          ">
+          Keluar
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation (hidden by default) -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pt-4 pb-6 space-y-3">
+      <a href="dashboard.html" class="block text-white hover:opacity-80 transition">Beranda</a>
+      <a href="profil.html" class="block text-white hover:opacity-80 transition">Profil</a>
+      <a href="#.html" id="logoutButtonMobile" class="block text-white hover:opacity-80transition">Keluar</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-16 pb-16 px-4">
+    <div class="container">
+      <div class="glass p-8 md:p-12 text-center mx-auto max-w-5xl rounded-3xl" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Selamat Datang, <span id="userName">Pelanggan</span>!</h2>
+        <p class="text-lg text-slate-300">Kelola langganan internetmu dengan mudah dari sini.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Section -->
+  <section class="pb-16">
+    <div class="container px-4">
+      <div class="grid gap-8">
+        <!-- Langganan Aktif -->
+        <div class="glass p-6 rounded-xl col-span-2 flex flex-col justify-between md:flex-row xl:flex-col"
+          data-aos="fade-up">
+          <div class="flex-1 mb-4">
+            <h3 class="text-2xl font-semibold mb-6">Langganan Aktif</h3>
+            <div class="grid gap-4">
+              <div
+                class="p-6 border border-sky-500 rounded-lg shadow-md flex flex-col gap-4 bg-gradient-to-r from-sky-800 to-teal-500">
+                <div>
+                  <p class="text-xl font-bold">Paket: <span id="paketInternet">-</span></p>
+                  <p>Durasi: <span id="durasiBerlangganan">-</span> Bulan</p>
+                  <p>Total Harga: <span id="totalHarga">-</span></p>
+                  <p>Status: <span class="text-green-400 font-semibold">Aktif</span></p>
+                </div>
+                <div class="flex flex-col gap-3 sm:flex-row sm:gap-3 md:flex-row md:gap-4 lg:flex-row lg:gap-4">
+                  <button
+                    class="bg-gradient-to-r from-emerald-600 to-teal-500 px-4 py-2 rounded-lg text-sm text-white hover:opacity-80 w-full sm:w-auto flex-1"
+                    onclick="bukaModalPerpanjang()">Perpanjang</button>
+                  <button
+                    class="btn-gradient px-4 py-2 rounded-lg text-sm text-white hover:opacity-80 w-full sm:w-auto flex-1"
+                    onclick="bukaModalUpgrade()">Upgrade</button>
+                  <button
+                    class="bg-gradient-to-r from-red-600 to-orange-500 px-4 py-2 rounded-lg text-sm text-white hover:opacity-80 w-full sm:w-auto flex-1"
+                    onclick="batalkanPaket()">Batalkan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Riwayat Pembayaran -->
+    <div class="container px-4 mt-12">
+      <div class="glass p-6 rounded-xl" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-6">Riwayat Pembayaran</h3>
+        <div class="overflow-x-auto">
+          <table class="table table-dark table-striped text-sm w-full min-w-max">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Paket</th>
+                <th>Durasi</th>
+                <th>Total</th>
+                <th>Jenis Transaksi</th>
+              </tr>
+            </thead>
+            <tbody id="historyTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-slate-400 text-xs py-6 mt-16">
+    &copy; 2025 IntraOne. All Rights Reserved.
+  </footer>
+
+  <!-- Modal Konfirmasi Perpanjang -->
+  <div class="modal fade" id="perpanjangModal" tabindex="-1" aria-labelledby="perpanjangModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" data-aos="zoom-in">
+      <div class="modal-content glass border border-sky-700 shadow-lg">
+        <div class="modal-header bg-emerald-600 text-white rounded-t-xl">
+          <h5 class="modal-title font-semibold" id="perpanjangModalLabel">Konfirmasi Perpanjang</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-slate-300">
+          <p class="text-center text-lg mb-3">Apakah Anda yakin ingin memperpanjang langganan paket <span
+              class="text-emerald-600 font-medium" id="paketKonfirmasiPerpanjang">...</span>?</p>
+          <p class="text-center text-sm text-slate-400">Durasi: <span id="durasiKonfirmasiPerpanjang"> Bulan</span></p>
+          <p class="text-center text-sm text-slate-400 mb-4">Harga: Rp <span id="hargaKonfirmasiPerpanjang"></span></p>
+        </div>
+        <div class="modal-footer flex justify-center gap-3">
+          <button type="button" class="btn btn-secondary px-4 py-2 rounded-lg" data-bs-dismiss="modal">Batal</button>
+          <button type="button"
+            class="bg-gradient-to-r from-emerald-600 to-teal-500 px-4 py-2 rounded-lg hover:opacity-80"
+            onclick="prosesPerpanjang()">Lanjutkan Pembayaran</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="upgradeModal" tabindex="-1" aria-labelledby="upgradeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" data-aos="zoom-in">
+      <div class="modal-content glass border border-sky-700 shadow-lg">
+        <div class="modal-header bg-sky-900 text-white rounded-t-xl">
+          <h5 class="modal-title font-semibold" id="upgradeModalLabel">Konfirmasi Perpanjang</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-slate-300">
+          <p class="text-center text-lg mb-3">Apakah Anda yakin ingin upgrade langganan paket <span
+              class="text-sky-400 font-medium" id="paketKonfirmasiUpgrade">...</span>?</p>
+          <p class="text-center text-sm text-slate-400">Durasi: <span id="durasiKonfirmasiUpgrade"></span> Bulan</p>
+          <p class="text-center text-sm text-slate-400 mb-4">Harga: Rp <span id="hargaKonfirmasiUpgrade"></span></p>
+        </div>
+        <div class="modal-footer flex justify-center gap-3">
+          <button type="button" class="btn btn-secondary px-4 py-2 rounded-lg" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn-gradient px-4 py-2 rounded-lg" onclick="prosesUpgrade()">Lanjutkan
+            Upgrade</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Konfirmasi Batalkan -->
+  <div class="modal fade" id="batalkanModal" tabindex="-1" aria-labelledby="batalkanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" data-aos="zoom-in">
+      <div class="modal-content glass border border-red-700 shadow-lg">
+        <div class="modal-header bg-red-900 text-white rounded-t-xl">
+          <h5 class="modal-title font-semibold" id="batalkanModalLabel">Konfirmasi Pembatalan</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center text-slate-300">
+          <p class="text-lg mb-3">Apakah Anda yakin ingin membatalkan langganan <span class="text-red-400 font-medium"
+              id="paketBatalkan">...</span> dan menghapus akun?</p>
+          <p class="text-sm text-slate-400">Tindakan ini tidak dapat dibatalkan.</p>
+        </div>
+        <div class="modal-footer flex justify-center gap-3">
+          <button type="button" class="btn btn-secondary px-4 py-2 rounded-lg" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:opacity-80"
+            onclick="prosesBatalkan()">Ya, Batalkan & Hapus Akun</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Bootstrap + AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    const daftarPelanggan = JSON.parse(localStorage.getItem('daftarPelanggan')) || [];
+    console.log(daftarPelanggan);
+    const loggedInEmail = localStorage.getItem('userEmail');
+    const loggedInPhone = localStorage.getItem('userPhone');
+
+    const user = daftarPelanggan.find(item => item.email === loggedInEmail && item.noHP === loggedInPhone);
+
+    if (!user) {
+      window.location.href = 'login.html';
+    } else {
+      document.getElementById('userName').textContent = user.nama;
+      document.getElementById('paketInternet').textContent = user.paketInternet;
+      document.getElementById('durasiBerlangganan').textContent = user.durasiBerlangganan;
+      document.getElementById('totalHarga').textContent = "Rp " + user.totalHarga.toLocaleString('id-ID');
+
+      const historyTable = document.getElementById('historyTable');
+    const databaseTransaksi = JSON.parse(localStorage.getItem('databaseTransaksi')) || [];
+
+    // Filter data transaksi user
+    const transaksiUser = databaseTransaksi.filter(item => item.email === user.email && item.noHP === user.noHP);
+
+    transaksiUser.sort(function(a, b) {
+  return new Date(b.tanggalTransaksi) - new Date(a.tanggalTransaksi);
+});
+
+    if (transaksiUser.length === 0) {
+      historyTable.innerHTML = `<tr><td colspan="5" class="text-center text-slate-400">Belum ada transaksi</td></tr>`;
+    } else {
+      historyTable.innerHTML = ""; // kosongkan dulu
+      transaksiUser.forEach(entry => {
+        const row = `
+          <tr>
+            <td>${entry.tanggalTransaksi}</td>
+            <td>${entry.paket}</td>
+            <td>${entry.durasi} Bulan</td>
+            <td>Rp ${entry.totalHarga.toLocaleString('id-ID')}</td>
+            <td>${entry.jenisPembayaran}</td>
+          </tr>`;
+        historyTable.innerHTML += row;
+      });
+    }
+  }
+
+
+    // Buka modal dan isi datanya
+    function bukaModalPerpanjang() {
+      // Pakai variabel user yang sudah ada
+      document.getElementById('paketKonfirmasiPerpanjang').textContent = user.paketInternet;
+      document.getElementById('durasiKonfirmasiPerpanjang').textContent = user.durasiBerlangganan;
+      document.getElementById('hargaKonfirmasiPerpanjang').textContent = user.totalHarga;
+
+      // Buka modal Bootstrap
+      const perpanjangModal = new bootstrap.Modal(document.getElementById('perpanjangModal'));
+      perpanjangModal.show();
+    }
+
+
+    // Lanjutkan ke halaman pembayaran
+    function prosesPerpanjang() {
+      // Simpan data ke localStorage buat halaman pembayaran
+      localStorage.setItem('perpanjangData', JSON.stringify({
+        paket: user.paketInternet,
+        durasi: user.durasiBerlangganan,
+        harga: user.totalHarga
+      }));
+
+      window.location.href = 'payment.html';
+    }
+
+
+    function bukaModalUpgrade() {
+      // Pakai variabel user yang sudah ada
+      document.getElementById('paketKonfirmasiUpgrade').textContent = user.paketInternet;
+      document.getElementById('durasiKonfirmasiUpgrade').textContent = user.durasiBerlangganan;
+      document.getElementById('hargaKonfirmasiUpgrade').textContent = user.totalHarga;
+
+      // Buka modal Bootstrap
+      const upgradeModal = new bootstrap.Modal(document.getElementById('upgradeModal'));
+      upgradeModal.show();
+    }
+
+    function prosesUpgrade() {
+      // Simpan data user ke localStorage (opsional, kalau mau diambil di halaman upgrade)
+      localStorage.setItem('upgradeData', JSON.stringify({
+        paket: user.paketInternet,
+        durasi: user.durasiBerlangganan,
+        harga: user.totalHarga
+      }));
+
+      // Redirect ke halaman upgrade
+      window.location.href = 'upgradepaket.html';
+    }
+
+    function batalkanPaket() {
+      // Isi info paket di modal
+      document.getElementById('paketBatalkan').textContent = user.paketInternet;
+
+      // Buka modal Bootstrap
+      const batalkanModal = new bootstrap.Modal(document.getElementById('batalkanModal'));
+      batalkanModal.show();
+    }
+
+    function prosesBatalkan() {
+      // Ambil daftar pelanggan
+      let daftarPelanggan = JSON.parse(localStorage.getItem('daftarPelanggan')) || [];
+
+      // Filter user yg lain, buang user yang login sekarang
+      daftarPelanggan = daftarPelanggan.filter(item => item.email !== loggedInEmail || item.noHP !== loggedInPhone);
+
+      // Simpan daftar baru (user dihapus)
+      localStorage.setItem('daftarPelanggan', JSON.stringify(daftarPelanggan));
+
+      // Hapus data login
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userPhone');
+
+      // Arahkan ke halaman login
+      window.location.href = 'login.html';
+    }
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('animate-slide-down');
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('animate-slide-down');
+      }
+    });
+
+    AOS.init({
+      duration: 1000, // durasi animasi (ms)
+      once: true, // animasi hanya muncul sekali
+    });
+
+    document.getElementById('logoutButton').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (confirm('Apakah Anda yakin ingin keluar?')) {
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userPhone');
+      window.location.href = 'login.html';
+    }
+  });
+
+  // Konfirmasi Logout - Mobile
+  document.getElementById('logoutButtonMobile').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (confirm('Apakah Anda yakin ingin keluar?')) {
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userPhone');
+      window.location.href = 'login.html';
+    }
+  });
+
+  </script>
+
+</body>
+
+</html>
