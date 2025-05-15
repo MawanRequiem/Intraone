@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Konfirmasi Pembayaran - Virtual Account</title>
-    <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+    <link rel="shortcut icon" type="x-icon" href="../media/logo-small.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
     <style>
@@ -73,74 +73,8 @@
         </div>
     </div>
 
-    <script>
-        const kodeVA = Array.from({ length: 16 }, () => Math.floor(Math.random() * 10)).join('');
-        document.getElementById("kodeVA").textContent = kodeVA;
-
-        function salinVA() {
-            navigator.clipboard.writeText(kodeVA);
-            alert("Kode VA disalin!");
-        }
-
-        function konfirmasiPembayaran() {
-            alert("Transaksi Berhasil");
-            window.location.href = "dashboard.html";
-        }
-
-        function batalkanPembayaran() {
-            const confirmCancel = confirm("Yakin ingin membatalkan pembayaran?");
-            if (confirmCancel) {
-                window.location.href = "payment.html";
-            }
-        }
-
-        let timeLeft = 30 * 60;
-        const timerEl = document.getElementById("timer");
-
-        const countdown = setInterval(() => {
-            let m = Math.floor(timeLeft / 60);
-            let s = timeLeft % 60;
-            timerEl.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-                document.getElementById("modal-gagal").classList.remove("hidden");
-            }
-            timeLeft--;
-        }, 1000);
-
-        function konfirmasiPembayaran() {
-            alert("Transaksi Berhasil");
-            localStorage.removeItem('konfirmasiData');
-            window.location.href = "dashboard.html";
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const data = JSON.parse(localStorage.getItem('konfirmasiData'));
-            if (data) {
-                document.getElementById("paket").textContent = data.paket;
-                document.getElementById("harga").textContent = data.harga;
-            }
-        });
-
-        document.getElementById('logoutButton').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (confirm('Apakah Anda yakin ingin keluar?')) {
-      localStorage.removeItem('userEmail');
-      localStorage.removeItem('userPhone');
-      window.location.href = 'login.html';
-    }
-  });
-
-  // Konfirmasi Logout - Mobile
-  document.getElementById('logoutButtonMobile').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (confirm('Apakah Anda yakin ingin keluar?')) {
-      localStorage.removeItem('userEmail');
-      localStorage.removeItem('userPhone');
-      window.location.href = 'login.html';
-    }
-  });
-    </script>
+    <script src="../js/confirmVN.js"></script>
+    
 </body>
 
 </html>

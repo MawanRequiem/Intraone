@@ -1,0 +1,23 @@
+runtime: nodejs22
+
+entrypoint: npm start
+
+env_variables:
+  NODE_ENV: 'production'
+
+handlers:
+  - url: /css
+    static_dir: css
+
+  - url: /js
+    static_dir: js
+
+  - url: /media
+    static_dir: media
+
+  - url: /(.*\.(html|js|css|png|jpg|jpeg|gif|ico|svg|webp))
+    static_files: view/\1
+    upload: (.*\.(html|js|css|png|jpg|jpeg|gif|ico|svg|webp))
+
+  - url: /.*
+    script: auto

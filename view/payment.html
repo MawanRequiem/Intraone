@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pembayaran Langganan - IntraOne</title>
-  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="shortcut icon" type="x-icon" href="../media/logo-small.png">
+  <link rel="stylesheet" href="../css/index.css">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -16,7 +16,7 @@
   <!-- AOS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="../css/index.css">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -83,7 +83,7 @@
   <nav class="bg-sky-900 py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
     <div class="container mx-auto flex items-center justify-between">
       <a class="navbar-brand text-xl font-bold" href="#">
-        <img src="media/logo-white.png" class="h-5 md:h-10" alt="Logo">
+        <img src="../media/logo-white.png" class="h-5 md:h-10" alt="Logo">
       </a>
 
       <!-- Hamburger Icon (mobile only) -->
@@ -142,41 +142,41 @@
         <div id="payment-methods">
           <button class="payment-method w-full flex items-center justify-between px-3 py-2 md:p-4 border border-gray-400 rounded-lg hover:bg-gray-100 text-sm md:text-base">
             <span class="flex items-center method-name text-xs sm:text-sm md:text-base">
-              <img src="media/gopay.png" class="w-5 sm:w-6 md:w-8 mr-2" alt="Gopay"> Gopay
+              <img src="../media/gopay.png" class="w-5 sm:w-6 md:w-8 mr-2" alt="Gopay"> Gopay
             </span>
             <span class="text-gray-600 hover:text-black price text-xs sm:text-sm md:text-base">Rp --</span>
           </button>
         
           <button class="payment-method w-full flex items-center justify-between px-3 py-2 md:p-4 border border-gray-400 rounded-lg hover:bg-gray-100 mt-3 text-sm md:text-base">
             <span class="flex items-center method-name text-xs sm:text-sm md:text-base">
-              <img src="media/OVO.png" class="w-5 sm:w-6 md:w-8 mr-2" alt="OVO"> OVO
+              <img src="../media/OVO.png" class="w-5 sm:w-6 md:w-8 mr-2" alt="OVO"> OVO
             </span>
             <span class="text-gray-600 hover:text-black price text-xs sm:text-sm md:text-base">Rp --</span>
           </button>
         
           <button class="payment-method w-full flex items-center justify-between px-3 py-2 md:p-4 border border-gray-400 rounded-lg hover:bg-gray-100 mt-3 text-sm md:text-base">
             <span class="flex items-center method-name text-xs sm:text-sm md:text-base">
-              <img src="media/QRIS.png" class="w-5 sm:w-6 md:w-8 mr-2" alt="QRIS"> QRIS
+              <img src="../media/QRIS.png" class="w-5 sm:w-6 md:w-8 mr-2" alt="QRIS"> QRIS
             </span>
             <span class="text-gray-600 hover:text-black price text-xs sm:text-sm md:text-base">Rp --</span>
           </button>
         
           <button class="payment-method w-full flex items-center justify-between px-3 py-2 md:p-4 border border-gray-400 rounded-lg hover:bg-gray-100 mt-3 text-sm md:text-base">
             <span class="flex items-center method-name text-xs sm:text-sm md:text-base">
-              <img src="media/partner6.png" class="w-5 sm:w-6 md:w-8 mr-2" alt="BCA Virtual Account"> BCA Virtual Account
+              <img src="../media/partner6.png" class="w-5 sm:w-6 md:w-8 mr-2" alt="BCA Virtual Account"> BCA Virtual Account
             </span>
             <span class="text-gray-600 hover:text-black price text-xs sm:text-sm md:text-base">Rp --</span>
           </button>
         
           <button class="payment-method w-full flex items-center justify-between px-3 py-2 md:p-4 border border-gray-400 rounded-lg hover:bg-gray-100 mt-3 text-sm md:text-base">
             <span class="flex items-center method-name text-xs sm:text-sm md:text-base">
-              <img src="media/Mandiri.png" class="w-5 sm:w-6 md:w-8 mr-2" alt="Mandiri Virtual Account"> Mandiri Virtual Account
+              <img src="../media/Mandiri.png" class="w-5 sm:w-6 md:w-8 mr-2" alt="Mandiri Virtual Account"> Mandiri Virtual Account
             </span>
             <span class="text-gray-600 hover:text-black price text-xs sm:text-sm md:text-base">Rp --</span>
           </button>
         </div>   
       
-        <button class="btn-gradient w-full mt-6 py-3 rounded-xl" onclick="bayarSekarang()">Bayar Sekarang</button>
+        <button class="btn-gradient w-full mt-6 py-3 rounded-xl" onclick="bayarSekarang()" id="btnBayar">Bayar Sekarang</button>
       </div>
     </div>
   </section>
@@ -189,144 +189,8 @@
   <!-- Bootstrap + AOS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-  <script>
-    AOS.init({ duration: 1000 });
-
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    menuToggle.addEventListener('click', () => {
-      if (mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.remove('hidden');
-        mobileMenu.classList.add('animate-slide-down');
-      } else {
-        mobileMenu.classList.add('hidden');
-        mobileMenu.classList.remove('animate-slide-down');
-      }
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const upgradeData = JSON.parse(localStorage.getItem('upgradeData'));
-
-      if (!upgradeData) {
-        alert("Data upgrade tidak ditemukan!");
-        window.location.href = "upgradepaket.html";
-        return;
-      }
-
-      // Tampilkan data di bagian atas
-      document.getElementById('paket').textContent = upgradeData.paket;
-      document.getElementById('durasi').textContent = upgradeData.durasi + " Bulan";
-      document.getElementById('harga').textContent = "Rp " + upgradeData.harga.toLocaleString('id-ID');
-
-
-
-      // Update harga di tiap metode pembayaran
-      const paymentPrices = document.querySelectorAll('#payment-methods .text-gray-600');
-      paymentPrices.forEach(el => {
-        el.textContent = "Rp " + upgradeData.harga.toLocaleString('id-ID');
-      });
-
-      // Pilih metode
-      let selectedMethod = null;
-      const paymentButtons = document.querySelectorAll(".payment-method");
-
-      paymentButtons.forEach(btn => {
-        btn.addEventListener("click", function () {
-          paymentButtons.forEach(b => b.classList.remove("bg-sky-800", "ring", "ring-sky-400"));
-          this.classList.add("bg-sky-800", "ring", "ring-sky-400");
-          selectedMethod = this.querySelector("span").textContent.trim().toLowerCase();
-        });
-      });
-
-      // Bayar Sekarang
-      window.bayarSekarang = function () {
-        if (!selectedMethod) {
-          alert("Silakan pilih metode pembayaran terlebih dahulu.");
-          return;
-        }
-
-        simpanTransaksi(selectedMethod);
-
-        // Ambil data yang ingin dikirim
-        const paket = document.getElementById('paket').textContent;
-        const harga = document.getElementById('harga').textContent;
-
-        // Simpan ke localStorage
-        localStorage.setItem('konfirmasiData', JSON.stringify({
-          paket: paket,
-          harga: harga
-        }));
-
-        if (selectedMethod.includes("gopay") || selectedMethod.includes("qris")) {
-          window.location.href = "confirmQR.html";
-        } else if (selectedMethod.includes("bca virtual account") || selectedMethod.includes("mandiri virtual account")) {
-          window.location.href = "confirmVA.html";
-        } else if (selectedMethod.includes("ovo")) {
-          window.location.href = "confirmPN.html";
-        } else {
-          alert("Metode pembayaran tidak dikenali.");
-        }
-      };
-    });
-
-    // Logout
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem('userEmail');
-        localStorage.removeItem('userPhone');
-        window.location.href = 'login.html';
-      });
-    }
-
-    function simpanTransaksi(selectedMethodText) {
-      const daftarPelanggan = JSON.parse(localStorage.getItem('daftarPelanggan')) || [];
-      const loggedInEmail = localStorage.getItem('userEmail');
-      const loggedInPhone = localStorage.getItem('userPhone');
-      const user = daftarPelanggan.find(item => item.email === loggedInEmail && item.noHP === loggedInPhone);
-
-      if (!user) return;
-
-      const transaksiBaru = {
-        email: user.email,
-        nama: user.nama || "User",
-        noHP: user.noHP,
-        tanggalTransaksi: new Date().toISOString().split('T')[0], // Format: YYYY-MM-DD
-        durasi: user.durasiBerlangganan,
-        paket: user.paketInternet,
-        totalHarga: user.totalHarga,
-        metodePembayaran: selectedMethodText,
-        jenisPembayaran: "perpanjangan"
-      };
-
-      let databaseTransaksi = JSON.parse(localStorage.getItem('databaseTransaksi')) || [];
-      databaseTransaksi.push(transaksiBaru);
-      localStorage.setItem('databaseTransaksi', JSON.stringify(databaseTransaksi));
-    }
-
-    document.getElementById('logoutButton').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (confirm('Apakah Anda yakin ingin keluar?')) {
-      localStorage.removeItem('userEmail');
-      localStorage.removeItem('userPhone');
-      window.location.href = 'login.html';
-    }
-  });
-
-  // Konfirmasi Logout - Mobile
-  document.getElementById('logoutButtonMobile').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (confirm('Apakah Anda yakin ingin keluar?')) {
-      localStorage.removeItem('userEmail');
-      localStorage.removeItem('userPhone');
-      window.location.href = 'login.html';
-    }
-  });
-  </script>
-
-
+  <script type="module" src="public/js/controller/paymentController.js"></script>
+  <script src="../js/payment.js"></script>
 </body>
 
 </html>

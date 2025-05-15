@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Upgrade Paket - IntraOne</title>
-  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="shortcut icon" type="x-icon" href="../media/logo-small.png">
+  <link rel="stylesheet" href="../css/index.css">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -52,7 +52,7 @@
   <nav class="bg-sky-900 py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
     <div class="container mx-auto flex items-center justify-between">
       <a class="navbar-brand text-xl font-bold" href="#">
-        <img src="media/logo-white.png" class="h-5 md:h-10" alt="Logo">
+        <img src="../media/logo-white.png" class="h-5 md:h-10" alt="Logo">
       </a>
 
       <button class="md:hidden focus:outline-none" id="menu-toggle">
@@ -140,86 +140,7 @@
   <!-- Bootstrap + AOS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-  <script>
-    AOS.init({ duration: 1000 });
-
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    menuToggle.addEventListener('click', () => {
-      if (mobileMenu.classList.contains('hidden')) {
-        mobileMenu.classList.remove('hidden');
-        mobileMenu.classList.add('animate-slide-down');
-      } else {
-        mobileMenu.classList.add('hidden');
-        mobileMenu.classList.remove('animate-slide-down');
-      }
-    });
-
-    // Ambil data user dari localStorage (pastikan ini konsisten dengan yang lain)
-    const daftarPelanggan = JSON.parse(localStorage.getItem('daftarPelanggan')) || [];
-    const loggedInEmail = localStorage.getItem('userEmail');
-    const loggedInPhone = localStorage.getItem('userPhone');
-    const userIndex = daftarPelanggan.findIndex(item => item.email === loggedInEmail && item.noHP === loggedInPhone);
-    const user = daftarPelanggan[userIndex];
-
-    if (!user) {
-      window.location.href = 'login.html';
-    }
-
-    
-
-    // Update total bayar
-    const paketSelect = document.getElementById('paketBaru');
-    const durasiInput = document.getElementById('durasiBaru');
-    const totalBayarSpan = document.getElementById('totalBayar');
-
-    paketSelect.addEventListener('change', updateTotalBayar);
-    durasiInput.addEventListener('input', updateTotalBayar);
-
-    function updateTotalBayar() {
-      const selectedOption = paketSelect.options[paketSelect.selectedIndex];
-      const harga = parseInt(selectedOption.getAttribute('data-harga') || 0);
-      const durasi = parseInt(durasiInput.value) || 1;
-      const total = harga * durasi;
-
-      totalBayarSpan.textContent = `Rp ${total.toLocaleString('id-ID')}`;
-    }
-
-    // Proses upgrade dan redirect ke halaman pembayaran
-    function prosesUpgrade() {
-      const selectedOption = paketSelect.options[paketSelect.selectedIndex];
-      const paketBaru = selectedOption.value;
-      const hargaBaru = parseInt(selectedOption.getAttribute('data-harga') || 0);
-      const durasiBaru = parseInt(durasiInput.value) || 1;
-      const totalBayar = hargaBaru * durasiBaru;
-
-      if (!paketBaru) {
-        alert('Silakan pilih paket terlebih dahulu!');
-        return;
-      }
-
-      // Update data user
-      user.paketInternet = paketBaru;
-      user.durasiBerlangganan = durasiBaru;
-      user.totalHarga = totalBayar;
-
-      daftarPelanggan[userIndex] = user;
-      localStorage.setItem('daftarPelanggan', JSON.stringify(daftarPelanggan));
-
-      // Simpan data upgrade buat pembayaran
-      localStorage.setItem('upgradeData', JSON.stringify({
-        paket: paketBaru,
-        durasi: durasiBaru,
-        harga: totalBayar
-      }));
-
-      // Redirect ke halaman payment.html
-      window.location.href = 'paymentupgrade.html';
-    }
-  </script>
-
+  <script src="../js/upgradePaket.js"></script>
 </body>
 
 </html>

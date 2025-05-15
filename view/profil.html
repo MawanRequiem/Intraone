@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profil Pengguna - IntraOne</title>
-  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+  <link rel="shortcut icon" type="x-icon" href="../media/logo-small.png">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -15,7 +15,9 @@
   <!-- AOS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="../css/index.css">
+  <script src="../js/profil.js"></script>
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -47,7 +49,7 @@
   <nav class="bg-sky-900 py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
     <div class="container mx-auto flex items-center justify-between">
       <a class="navbar-brand text-xl font-bold" href="#">
-        <img src="media/logo-white.png" class="h-5 md:h-10" alt="Logo">
+        <img src="../media/logo-white.png" class="h-5 md:h-10" alt="Logo">
       </a>
 
       <!-- Hamburger Icon (mobile only) -->
@@ -103,56 +105,10 @@
   <!-- Bootstrap + AOS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
   <script>
     AOS.init({ duration: 1000 });
-
-    const userEmail = localStorage.getItem("userEmail");
-    const userPhone = localStorage.getItem("userPhone");
-    const daftarPelanggan = JSON.parse(localStorage.getItem("daftarPelanggan")) || [];
-
-    const user = daftarPelanggan.find(pelanggan => pelanggan.email === userEmail && pelanggan.noHP === userPhone);
-
-    if (user) {
-      document.getElementById("profilNama").innerText = user.nama || "-";
-      document.getElementById("profilEmail").innerText = user.email || "-";
-      document.getElementById("profilHP").innerText = user.noHP || "-";
-      document.getElementById("profilTTL").innerText = (user.tempatLahir || "-") + ", " + (user.tanggalLahir || "-");
-      document.getElementById("profilKTP").innerText = user.noKTP || "-";
-      document.getElementById("profilAlamat").innerText = user.alamat || "-";
-      document.getElementById("profilWilayah").innerText = `${user.kota || "-"} / ${user.kecamatan || "-"}`;
-      document.getElementById("profilPaket").innerText = `${user.kategoriPaket || "-"} - ${user.paketInternet || "-"}`;
-    } else {
-      alert("Data pengguna tidak ditemukan. Silakan login kembali.");
-      window.location.href = "login.html";
-    }
-
-    // Toggle mobile menu
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    document.getElementById('logoutButton').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (confirm('Apakah Anda yakin ingin keluar?')) {
-      localStorage.removeItem('userEmail');
-      localStorage.removeItem('userPhone');
-      window.location.href = 'login.html';
-    }
-  });
-
-  // Konfirmasi Logout - Mobile
-  document.getElementById('logoutButtonMobile').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (confirm('Apakah Anda yakin ingin keluar?')) {
-      localStorage.removeItem('userEmail');
-      localStorage.removeItem('userPhone');
-      window.location.href = 'login.html';
-    }
-  });
   </script>
+
 </body>
 
 </html>

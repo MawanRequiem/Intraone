@@ -5,10 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Form Pendaftaran Paket WiFi - IntraOne</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
-  <link rel="stylesheet" href="css/index.css" />
+  <link rel="shortcut icon" type="x-icon" href="../media/logo-small.png">
+  <link rel="stylesheet" href="../css/index.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <style>
@@ -44,7 +44,7 @@
   <nav class="bg-white py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
     <div class="container mx-auto flex items-center justify-between">
       <a class="navbar-brand text-xl font-bold" href="#">
-        <img src="media/logo.png" class="h-5 md:h-10" alt="Logo">
+        <img src="../media/logo.png" class="h-5 md:h-10" alt="Logo">
       </a>
 
       <!-- Hamburger Icon (mobile only) -->
@@ -222,7 +222,7 @@
   <footer class="bg-sky-50 text-gray-800 py-16">
     <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start space-y-12 md:space-y-0">
       <div class="flex flex-col space-y-6 md:w-1/3">
-        <a href="#"><img src="media/logo.png" class="h-5 md:h-10" alt="Logo" /></a>
+        <a href="#"><img src="../media/logo.png" class="h-5 md:h-10" alt="Logo" /></a>
         <p class="text-sm text-gray-500">Solusi Integrasi Digital Terdepan</p>
       </div>
       <div class="flex flex-col space-y-4 md:w-1/3">
@@ -263,7 +263,7 @@
     </div>
   </div>
 
-
+  <script src="../js/registrasi.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
@@ -280,198 +280,6 @@
         mobileMenu.classList.add('hidden');
         mobileMenu.classList.remove('animate-slide-down');
       }
-    });
-
-    $(document).ready(function () {
-      $("#kecamatan").prop("disabled", true);
-      $("#paketInternet").prop("disabled", true);
-    });
-
-    const kecamatanData = {
-      Depok: ["Beji", "Cimanggis", "Pancoran Mas"],
-      Bogor: ["Bogor Utara", "Bogor Selatan", "Tanah Sareal"],
-      Bekasi: ["Bekasi Barat", "Bekasi Timur", "Medansatria"],
-    };
-
-    $("#kota").on("change", function () {
-      const kota = $(this).val();
-      const kecamatanSelect = $("#kecamatan");
-
-      if (kota === "default") {
-        kecamatanSelect.empty().prop("disabled", true);
-      } else {
-        const kecamatanList = kecamatanData[kota] || [];
-        kecamatanSelect.empty().prop("disabled", false);
-        kecamatanList.forEach((kecamatan) => {
-          kecamatanSelect.append(`<option value="${kecamatan}">${kecamatan}</option>`);
-        });
-      }
-    });
-
-    const paketOptions = {
-      Reguler: [
-        { name: "Basic Plan - 20 Mbps - Rp 150.000/Bulan", harga: 150000 },
-        { name: "Standard Plan - 75 Mbps - Rp 300.000/Bulan", harga: 300000 },
-        { name: "MaxOne Plan - 100 Mbps - Rp 400.000/Bulan", harga: 400000 },
-      ],
-      Gamer: [
-        { name: "Gamer Basic - 75 Mbps - Rp 350.000/Bulan", harga: 350000 },
-        { name: "Gamer Pro - 150 Mbps - Rp 500.000/Bulan", harga: 500000 },
-      ],
-      Bisnis: [
-        { name: "Bisnis Starter - 100 Mbps - Rp 600.000/Bulan", harga: 600000 },
-        { name: "Bisnis Pro - 200 Mbps - Rp 1.000.000/Bulan", harga: 1000000 },
-      ],
-    };
-
-    function updateHarga() {
-      const hargaPaket = $("option:selected", "#paketInternet").data("harga") || 0;
-      const durasi = parseInt($("#durasiBerlangganan").val()) || 1;
-      const biayaAdmin = 50000;
-      const subTotal = hargaPaket * durasi;
-      const ppn = subTotal * 0.11;
-      const total = subTotal + biayaAdmin + ppn;
-
-      $("#hargaPaket").text(`Rp ${subTotal.toLocaleString("id-ID")}`);
-      $("#biayaAdmin").text(`Rp ${biayaAdmin.toLocaleString("id-ID")}`);
-      $("#ppn").text(`Rp ${ppn.toLocaleString("id-ID")}`);
-      $("#totalHarga").text(`Rp ${total.toLocaleString("id-ID")}`);
-    }
-
-    $("#kategoriPaket").on("change", function () {
-      const kategori = $(this).val();
-      const paketSelect = $("#paketInternet");
-
-      if (kategori === "default") {
-        paketSelect.empty().prop("disabled", true);
-      } else {
-        const paketList = paketOptions[kategori] || [];
-        paketSelect.empty().prop("disabled", false);
-        paketList.forEach((paket) => {
-          paketSelect.append(`<option data-harga="${paket.harga}" value="${paket.name}">${paket.name}</option>`);
-        });
-      }
-    });
-
-    $("#paketInternet, #durasiBerlangganan").on("change", updateHarga);
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("formPendaftaran");
-      const modal = document.getElementById("modalKonfirmasi");
-      const btnLanjutkan = document.getElementById("lanjutkanRegistrasi");
-
-      if (!form) return;
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        let isValid = true;
-        let messages = [];
-        let firstInvalidField = null; // ⬅️ Tambahan penting!
-
-        const nama = form.querySelector("input[placeholder='Masukkan nama Anda']");
-        const nomorHP = form.querySelector("input[placeholder='08xxxxxxxxxx']");
-        const email = form.querySelector("input[type='email']");
-        const ktp = form.querySelector("input[placeholder='Masukkan nomor KTP']");
-        const alamat = form.querySelector("textarea");
-        const kecamatan = form.querySelector("#kecamatan");
-        const paket = form.querySelector("#paketInternet");
-
-        if (nama.value.trim() === "") {
-          isValid = false;
-          messages.push("Nama tidak boleh kosong.");
-          if (!firstInvalidField) firstInvalidField = nama;
-        }
-        if (!/^\d{10,13}$/.test(nomorHP.value.trim())) {
-          isValid = false;
-          messages.push("Nomor HP harus terdiri dari 10-13 digit angka.");
-          if (!firstInvalidField) firstInvalidField = nomorHP;
-        }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
-          isValid = false;
-          messages.push("Format email tidak valid.");
-          if (!firstInvalidField) firstInvalidField = email;
-        }
-        if (!/^\d{16}$/.test(ktp.value.trim())) {
-          isValid = false;
-          messages.push("Nomor KTP harus 16 digit angka.");
-          if (!firstInvalidField) firstInvalidField = ktp;
-        }
-        if (alamat.value.trim() === "") {
-          isValid = false;
-          messages.push("Alamat lengkap wajib diisi.");
-          if (!firstInvalidField) firstInvalidField = alamat;
-        }
-        if (kecamatan.disabled || !kecamatan.value) {
-          isValid = false;
-          messages.push("Silakan pilih kecamatan.");
-          if (!firstInvalidField) firstInvalidField = kecamatan[0]; // jQuery to native
-        }
-        if (paket.disabled || !paket.value) {
-          isValid = false;
-          messages.push("Silakan pilih paket internet.");
-          if (!firstInvalidField) firstInvalidField = paket[0];
-        }
-
-        if (!isValid) {
-          alert(messages.join("\n"));
-          firstInvalidField.focus(); // ✅ fokus ke field pertama yang gagal
-          return;
-        }
-
-        const formData = {
-          nama: $("input[placeholder='Masukkan nama Anda']").val(),
-          noHP: $("input[placeholder='08xxxxxxxxxx']").first().val(),
-          noHPAlternatif: $("input[placeholder='08xxxxxxxxxx']").last().val(),
-          noTeleponRumah: $("input[placeholder='021xxxxxxx']").val(),
-          tempatLahir: $("input[placeholder='Masukkan tempat lahir']").val(),
-          tanggalLahir: $("input[type='date']").val(),
-          email: $("input[type='email']").val(),
-          noKTP: $("input[placeholder='Masukkan nomor KTP']").val(),
-          alamat: $("textarea").val(),
-          kota: $("#kota").val(),
-          kecamatan: $("#kecamatan").val(),
-          kategoriPaket: $("#kategoriPaket").val(),
-          paketInternet: $("#paketInternet").val(),
-          durasiBerlangganan: $("#durasiBerlangganan").val(),
-          hargaPaket: $("#hargaPaket").text(),
-          biayaAdmin: $("#biayaAdmin").text(),
-          ppn: $("#ppn").text(),
-          totalHarga: $("#totalHarga").text(),
-        };
-
-        // Simpan ke localStorage
-        let daftarPelanggan = JSON.parse(localStorage.getItem("daftarPelanggan")) || [];
-        daftarPelanggan.push(formData);
-        localStorage.setItem("daftarPelanggan", JSON.stringify(daftarPelanggan));
-
-
-        // Tampilkan data di modal konfirmasi
-        document.getElementById("confirmNama").innerText = nama.value;
-        document.getElementById("confirmHP").innerText = nomorHP.value;
-        document.getElementById("confirmEmail").innerText = email.value;
-        document.getElementById("confirmKTP").innerText = ktp.value;
-        document.getElementById("confirmAlamat").innerText = alamat.value;
-        document.getElementById("confirmPaket").innerText = paket.value;
-
-        modal.classList.remove("hidden");
-      });
-
-      btnLanjutkan.addEventListener("click", function () {
-        const nama = document.getElementById("confirmNama").innerText;
-        const nomorHP = document.getElementById("confirmHP").innerText;
-        const email = document.getElementById("confirmEmail").innerText;
-        const ktp = document.getElementById("confirmKTP").innerText;
-        const alamat = document.getElementById("confirmAlamat").innerText;
-        const paket = document.getElementById("confirmPaket").innerText;
-
-        const pesan = `Halo Admin IntraOne!\n\nSaya ingin mendaftar paket wifi dengan rincian:\n\nNama: ${nama}\nNomor HP: ${nomorHP}\nEmail: ${email}\nNomor KTP: ${ktp}\nAlamat: ${alamat}\nPaket Internet: ${paket}\n\nMohon diproses, terima kasih!`;
-
-        const whatsappUrl = `https://wa.me/6281212678789?text=${encodeURIComponent(pesan)}`;
-        window.open(whatsappUrl, '_blank');
-
-        modal.classList.add("hidden");
-      });
     });
   </script>
 </body>

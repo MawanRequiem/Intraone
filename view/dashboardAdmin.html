@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin - IntraOne</title>
+  <link rel="shortcut icon" href="../media/logo-small.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../css/index.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #f1f5f9;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    .btn-gradient {
+      background: linear-gradient(to right, #0ea5e9, #06b6d4);
+      color: white;
+    }
+    .btn-gradient:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="bg-sky-900 py-4 px-6 shadow-md sticky top-0 z-50">
+    <div class="flex justify-between items-center">
+      <img src="../media/logo-white.png" class="h-10" alt="Logo">
+      <a href="login.html" class="text-white border px-3 py-1 rounded hover:bg-white hover:text-black transition">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-16 px-4">
+    <div class="container">
+      <div class="glass p-8 md:p-12 text-center mx-auto max-w-4xl rounded-3xl" data-aos="fade-up">
+        <h2 class="text-4xl font-bold mb-4">Dashboard Admin</h2>
+        <p class="text-slate-300">Kelola data langganan seluruh pelanggan</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter dan Kartu -->
+  <section class="pb-16">
+    <div class="container px-4">
+      <!-- Filter -->
+      <div class="flex flex-wrap gap-4 mb-8 justify-between items-center">
+        <input type="text" id="searchInput" placeholder="Cari nama pelanggan..."
+          class="px-4 py-2 rounded-lg w-full sm:w-64 text-black" />
+
+        <select id="filterKota" class="px-4 py-2 rounded-lg text-black">
+          <option value="">Semua Kota</option>
+        </select>
+
+        <select id="filterPaket" class="px-4 py-2 rounded-lg text-black">
+          <option value="">Semua Paket</option>
+        </select>
+
+      </div>
+
+      <!-- Kartu Pelanggan -->
+      <div id="adminCards" class="flex flex-col gap-6"></div>
+    </div>
+  </section>
+
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" data-aos="zoom-in">
+    <div class="modal-content glass border border-sky-700 shadow-lg">
+      <div class="modal-header bg-sky-900 text-white rounded-t-xl">
+        <h5 class="modal-title font-semibold" id="confirmModalTitle">Konfirmasi</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-slate-300" id="confirmModalBody">
+        Apakah Anda yakin?
+      </div>
+      <div class="modal-footer flex justify-center gap-3">
+        <button type="button" class="btn btn-secondary px-4 py-2 rounded-lg" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn-gradient px-4 py-2 rounded-lg" id="confirmModalOk">Ya, Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Footer -->
+  <footer class="text-center text-slate-400 text-xs py-6 mt-12">
+    &copy; 2025 IntraOne. All Rights Reserved.
+  </footer>
+
+  <!-- Script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+    let semuaData = {};
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("/api/pelanggan")
+        .then(res => res.json())
+        .then(data => {
+          semuaData = data || {};
+          isiFilter(data);
+          tampilkanData(Object.entries(data));
+        });
+
+      document.getElementById("searchInput").addEventListener("input", filterData);
+      document.getElementById("filterKota").addEventListener("change", filterData);
+      document.getElementById("filterPaket").addEventListener("change", filterData);
+    });
+
+    function isiFilter(data) {
+      const kotaSet = new Set();
+      const paketSet = new Set();
+
+      Object.values(data).forEach(p => {
+        if (p.kota) kotaSet.add(p.kota);
+        if (p.paketInternet) paketSet.add(p.paketInternet);
+      });
+
+      kotaSet.forEach(kota => {
+        const opt = document.createElement("option");
+        opt.value = kota;
+        opt.textContent = kota;
+        filterKota.appendChild(opt);
+      });
+
+      paketSet.forEach(paket => {
+        const opt = document.createElement("option");
+        opt.value = paket;
+        opt.textContent = paket;
+        filterPaket.appendChild(opt);
+      });
+    }
+
+    function filterData() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const kota = document.getElementById("filterKota").value;
+      const paket = document.getElementById("filterPaket").value;
+
+      const hasil = Object.entries(semuaData).filter(([_, user]) => {
+        const cocokNama = user.nama?.toLowerCase().includes(query);
+        const cocokKota = !kota || user.kota === kota;
+        const cocokPaket = !paket || user.paketInternet === paket;
+        return cocokNama && cocokKota && cocokPaket;
+      });
+
+      tampilkanData(hasil);
+    }
+
+    function tampilkanData(list) {
+      const container = document.getElementById("adminCards");
+      container.innerHTML = "";
+
+      if (list.length === 0) {
+        container.innerHTML = "<p class='text-slate-400'>Tidak ada data yang cocok.</p>";
+        return;
+      }
+
+      list.forEach(([id, user]) => {
+        const card = document.createElement("div");
+        card.className = "glass flex flex-col md:flex-row justify-between items-start gap-6 p-6 rounded-xl border border-sky-500";
+
+        card.innerHTML = `
+          <div class="flex-1">
+            <h4 class="text-2xl font-bold mb-2">${user.nama}</h4>
+            <p><strong>Kota:</strong> ${user.kota || '-'}</p>
+            <p><strong>Paket:</strong> ${user.paketInternet}</p>
+            <p><strong>Durasi:</strong> ${user.durasiBerlangganan} bulan</p>
+            <p><strong>Total:</strong> ${user.totalHarga || '-'}</p>
+            <p><strong>Expiry:</strong> ${new Date(user.expiryDate).toLocaleDateString('id-ID')}</p>
+            <p><strong>Status:</strong> 
+              <span class="font-semibold ${user.status === 'aktif' ? 'text-green-400' : 'text-yellow-400'}">${user.status}</span>
+            </p>
+          </div>
+      <div class="flex flex-col gap-2 items-end md:items-center mt-4 md:mt-0">
+        <button class="btn btn-sm btn-gradient w-full md:w-auto" onclick="konfirmasiModal('aktifkan', '${id}')">Aktifkan</button>
+        <button class="btn btn-sm btn-danger w-full md:w-auto" onclick="konfirmasiModal('hapus', '${id}')">Hapus</button>
+      </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updateStatus(id, status) {
+      fetch(`/api/pelanggan/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status })
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("Gagal update status");
+          alert("Status berhasil diupdate!");
+          location.reload();
+        })
+        .catch(() => alert("Gagal update status"));
+    }
+
+    function hapusPelanggan(id) {
+      if (!confirm("Yakin ingin menghapus pelanggan ini?")) return;
+
+      fetch(`/api/pelanggan/${id}`, { method: "DELETE" })
+        .then(res => {
+          if (!res.ok) throw new Error("Gagal hapus data");
+          alert("Pelanggan berhasil dihapus");
+          location.reload();
+        })
+        .catch(() => alert("Gagal menghapus pelanggan"));
+    }
+
+    function konfirmasiModal(aksi, id) {
+  selectedAction = aksi;
+  selectedId = id;
+
+  const modalTitle = document.getElementById("confirmModalTitle");
+  const modalBody = document.getElementById("confirmModalBody");
+
+  const modalHeader = document.querySelector("#confirmModal .modal-header");
+  const modalContent = document.querySelector("#confirmModal .modal-content");
+  const modalBodyText = document.querySelector("#confirmModal .modal-body");
+  const confirmButton = document.getElementById("confirmModalOk");
+
+    // Reset kelas dulu
+  modalHeader.classList.remove("bg-sky-900", "bg-red-800");
+  modalContent.classList.remove("border-sky-700", "border-red-700");
+  modalBodyText.classList.remove("text-slate-300", "text-red-200");
+  confirmButton.classList.remove("btn-gradient", "bg-red-700", "hover:bg-red-800", "text-white");
+
+
+  // Set konten dan gaya berdasarkan aksi
+  if (aksi === "aktifkan") {
+    modalTitle.textContent = "Konfirmasi Aktifkan Langganan";
+    modalBody.textContent = "Apakah Anda yakin ingin mengaktifkan pelanggan ini?";
+
+    modalHeader.classList.add("bg-sky-900");
+    modalContent.classList.add("border-sky-700");
+    modalBodyText.classList.add("text-slate-300");
+
+    confirmButton.textContent = "Ya, Aktifkan";
+    confirmButton.classList.add("btn-gradient"); // biru seperti biasa
+  } else if (aksi === "hapus") {
+    modalTitle.textContent = "Konfirmasi Hapus Pelanggan";
+    modalBody.textContent = "Apakah Anda yakin ingin menghapus pelanggan ini? Tindakan ini tidak dapat dibatalkan.";
+
+    modalHeader.classList.add("bg-red-800");
+    modalContent.classList.add("border-red-700");
+    modalBodyText.classList.add("text-red-200");
+
+    confirmButton.textContent = "Ya, Hapus";
+    confirmButton.classList.add("bg-red-700", "hover:bg-red-800", "text-white");
+  }
+
+  const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+  modal.show();
+
+  document.getElementById("confirmModalOk").onclick = () => {
+    if (selectedAction === "aktifkan") {
+      updateStatus(selectedId, "aktif");
+    } else if (selectedAction === "hapus") {
+      hapusPelanggan(selectedId);
+    }
+  };
+}
+  </script>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login IntraOne</title>
-  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+  <link rel="shortcut icon" type="x-icon" href="../media/logo-small.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -53,42 +53,9 @@
   
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="../js/login.js"></script>
   <script>
     AOS.init({ duration: 1000 });
-
-    const loginForm = document.getElementById('loginForm');
-const emailLogin = document.getElementById('emailLogin');
-const phoneLogin = document.getElementById('phoneLogin');
-const loginMessage = document.getElementById('loginMessage');
-
-// Login logic ambil dari daftarPelanggan
-loginForm.addEventListener('submit', function(e) {
-  e.preventDefault();
-  const emailInput = emailLogin.value.trim();
-  const phoneInput = phoneLogin.value.trim();
-
-  const daftarPelanggan = JSON.parse(localStorage.getItem("daftarPelanggan")) || [];
-
-  const pelangganDitemukan = daftarPelanggan.find(pelanggan => 
-    pelanggan.email === emailInput && pelanggan.noHP === phoneInput
-  );
-
-  if (pelangganDitemukan) {
-    loginMessage.textContent = 'Login berhasil!';
-    loginMessage.classList.add('text-green-400');
-    loginMessage.classList.remove('text-red-400');
-
-
-    localStorage.setItem('userEmail', pelangganDitemukan.email);
-    localStorage.setItem('userPhone', pelangganDitemukan.noHP);
-
-    window.location.href = 'dashboard.html';
-  } else {
-    loginMessage.textContent = 'Email atau Nomor HP salah!';
-    loginMessage.classList.add('text-red-400');
-    loginMessage.classList.remove('text-green-400');
-  }
-});
   </script>
 </body>
 </html>

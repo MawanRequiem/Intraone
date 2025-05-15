@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Pelanggan - IntraOne</title>
-  <link rel="shortcut icon" type="x-icon" href="media/logo-small.png">
+  <link rel="shortcut icon" type="x-icon" href="../media/logo-small.png">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -15,7 +15,7 @@
   <!-- AOS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="../css/index.css" />
 
   <style>
     body {
@@ -51,7 +51,7 @@
   <nav class="bg-sky-900 py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
     <div class="container mx-auto flex items-center justify-between">
       <a class="navbar-brand text-xl font-bold" href="#">
-        <img src="media/logo-white.png" class="h-5 md:h-10" alt="Logo">
+        <img src="../media/logo-white.png" class="h-5 md:h-10" alt="Logo">
       </a>
 
       <!-- Hamburger Icon (mobile only) -->
@@ -108,7 +108,8 @@
                   <p class="text-xl font-bold">Paket: <span id="paketInternet">-</span></p>
                   <p>Durasi: <span id="durasiBerlangganan">-</span> Bulan</p>
                   <p>Total Harga: <span id="totalHarga">-</span></p>
-                  <p>Status: <span class="text-green-400 font-semibold">Aktif</span></p>
+                  <p>Tenggat Langganan: <span id="expiryDate">-</span></p>
+                  <p>Status: <span id ="statusPaket" class="text-green-400 font-semibold">-</span></p>
                 </div>
                 <div class="flex flex-col gap-3 sm:flex-row sm:gap-3 md:flex-row md:gap-4 lg:flex-row lg:gap-4">
                   <button
@@ -167,7 +168,7 @@
           <p class="text-center text-lg mb-3">Apakah Anda yakin ingin memperpanjang langganan paket <span
               class="text-emerald-600 font-medium" id="paketKonfirmasiPerpanjang">...</span>?</p>
           <p class="text-center text-sm text-slate-400">Durasi: <span id="durasiKonfirmasiPerpanjang"> Bulan</span></p>
-          <p class="text-center text-sm text-slate-400 mb-4">Harga: Rp <span id="hargaKonfirmasiPerpanjang"></span></p>
+          <p class="text-center text-sm text-slate-400 mb-4">Harga: <span id="hargaKonfirmasiPerpanjang"></span></p>
         </div>
         <div class="modal-footer flex justify-center gap-3">
           <button type="button" class="btn btn-secondary px-4 py-2 rounded-lg" data-bs-dismiss="modal">Batal</button>
@@ -229,132 +230,10 @@
   <!-- Bootstrap + AOS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
+  <script src="../js/dashboard.js"></script>
   <script>
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
-
-    const daftarPelanggan = JSON.parse(localStorage.getItem('daftarPelanggan')) || [];
-    console.log(daftarPelanggan);
-    const loggedInEmail = localStorage.getItem('userEmail');
-    const loggedInPhone = localStorage.getItem('userPhone');
-
-    const user = daftarPelanggan.find(item => item.email === loggedInEmail && item.noHP === loggedInPhone);
-
-    if (!user) {
-      window.location.href = 'login.html';
-    } else {
-      document.getElementById('userName').textContent = user.nama;
-      document.getElementById('paketInternet').textContent = user.paketInternet;
-      document.getElementById('durasiBerlangganan').textContent = user.durasiBerlangganan;
-      document.getElementById('totalHarga').textContent = "Rp " + user.totalHarga.toLocaleString('id-ID');
-
-      const historyTable = document.getElementById('historyTable');
-    const databaseTransaksi = JSON.parse(localStorage.getItem('databaseTransaksi')) || [];
-
-    // Filter data transaksi user
-    const transaksiUser = databaseTransaksi.filter(item => item.email === user.email && item.noHP === user.noHP);
-
-    transaksiUser.sort(function(a, b) {
-  return new Date(b.tanggalTransaksi) - new Date(a.tanggalTransaksi);
-});
-
-    if (transaksiUser.length === 0) {
-      historyTable.innerHTML = `<tr><td colspan="5" class="text-center text-slate-400">Belum ada transaksi</td></tr>`;
-    } else {
-      historyTable.innerHTML = ""; // kosongkan dulu
-      transaksiUser.forEach(entry => {
-        const row = `
-          <tr>
-            <td>${entry.tanggalTransaksi}</td>
-            <td>${entry.paket}</td>
-            <td>${entry.durasi} Bulan</td>
-            <td>Rp ${entry.totalHarga.toLocaleString('id-ID')}</td>
-            <td>${entry.jenisPembayaran}</td>
-          </tr>`;
-        historyTable.innerHTML += row;
-      });
-    }
-  }
 
 
-    // Buka modal dan isi datanya
-    function bukaModalPerpanjang() {
-      // Pakai variabel user yang sudah ada
-      document.getElementById('paketKonfirmasiPerpanjang').textContent = user.paketInternet;
-      document.getElementById('durasiKonfirmasiPerpanjang').textContent = user.durasiBerlangganan;
-      document.getElementById('hargaKonfirmasiPerpanjang').textContent = user.totalHarga;
-
-      // Buka modal Bootstrap
-      const perpanjangModal = new bootstrap.Modal(document.getElementById('perpanjangModal'));
-      perpanjangModal.show();
-    }
-
-
-    // Lanjutkan ke halaman pembayaran
-    function prosesPerpanjang() {
-      // Simpan data ke localStorage buat halaman pembayaran
-      localStorage.setItem('perpanjangData', JSON.stringify({
-        paket: user.paketInternet,
-        durasi: user.durasiBerlangganan,
-        harga: user.totalHarga
-      }));
-
-      window.location.href = 'payment.html';
-    }
-
-
-    function bukaModalUpgrade() {
-      // Pakai variabel user yang sudah ada
-      document.getElementById('paketKonfirmasiUpgrade').textContent = user.paketInternet;
-      document.getElementById('durasiKonfirmasiUpgrade').textContent = user.durasiBerlangganan;
-      document.getElementById('hargaKonfirmasiUpgrade').textContent = user.totalHarga;
-
-      // Buka modal Bootstrap
-      const upgradeModal = new bootstrap.Modal(document.getElementById('upgradeModal'));
-      upgradeModal.show();
-    }
-
-    function prosesUpgrade() {
-      // Simpan data user ke localStorage (opsional, kalau mau diambil di halaman upgrade)
-      localStorage.setItem('upgradeData', JSON.stringify({
-        paket: user.paketInternet,
-        durasi: user.durasiBerlangganan,
-        harga: user.totalHarga
-      }));
-
-      // Redirect ke halaman upgrade
-      window.location.href = 'upgradepaket.html';
-    }
-
-    function batalkanPaket() {
-      // Isi info paket di modal
-      document.getElementById('paketBatalkan').textContent = user.paketInternet;
-
-      // Buka modal Bootstrap
-      const batalkanModal = new bootstrap.Modal(document.getElementById('batalkanModal'));
-      batalkanModal.show();
-    }
-
-    function prosesBatalkan() {
-      // Ambil daftar pelanggan
-      let daftarPelanggan = JSON.parse(localStorage.getItem('daftarPelanggan')) || [];
-
-      // Filter user yg lain, buang user yang login sekarang
-      daftarPelanggan = daftarPelanggan.filter(item => item.email !== loggedInEmail || item.noHP !== loggedInPhone);
-
-      // Simpan daftar baru (user dihapus)
-      localStorage.setItem('daftarPelanggan', JSON.stringify(daftarPelanggan));
-
-      // Hapus data login
-      localStorage.removeItem('userEmail');
-      localStorage.removeItem('userPhone');
-
-      // Arahkan ke halaman login
-      window.location.href = 'login.html';
-    }
 
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -373,25 +252,6 @@
       duration: 1000, // durasi animasi (ms)
       once: true, // animasi hanya muncul sekali
     });
-
-    document.getElementById('logoutButton').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (confirm('Apakah Anda yakin ingin keluar?')) {
-      localStorage.removeItem('userEmail');
-      localStorage.removeItem('userPhone');
-      window.location.href = 'login.html';
-    }
-  });
-
-  // Konfirmasi Logout - Mobile
-  document.getElementById('logoutButtonMobile').addEventListener('click', function (e) {
-    e.preventDefault();
-    if (confirm('Apakah Anda yakin ingin keluar?')) {
-      localStorage.removeItem('userEmail');
-      localStorage.removeItem('userPhone');
-      window.location.href = 'login.html';
-    }
-  });
 
   </script>
 
