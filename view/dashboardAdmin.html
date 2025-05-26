@@ -7,6 +7,7 @@
   <link rel="shortcut icon" href="../media/logo-small.png" type="image/x-icon" />
   <link rel="stylesheet" href="../css/index.css" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../js/dashboardAdmin.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
@@ -34,10 +35,37 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="bg-sky-900 py-4 px-6 shadow-md sticky top-0 z-50">
-    <div class="flex justify-between items-center">
-      <img src="../media/logo-white.png" class="h-10" alt="Logo">
-      <a href="login.html" class="text-white border px-3 py-1 rounded hover:bg-white hover:text-black transition">Logout</a>
+  <nav class="bg-sky-900 py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex items-center justify-between">
+      <a class="navbar-brand text-xl font-bold" href="#">
+        <img src="../media/logo-white.png" class="h-5 md:h-10" alt="Logo">
+      </a>
+
+      <!-- Hamburger Icon (mobile only) -->
+      <button class="md:hidden focus:outline-none" id="menu-toggle">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+          </path>
+        </svg>
+      </button>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="dashboardAdmin.html" class="text-white font-semibold">Beranda</a>
+        <a href="announcement.html" class="text-white hover:opacity-80 transition">Announcement</a>
+        <a href="loginAdmin.html" id="logoutButton" class="border border-white text-white px-4 py-2 rounded-md hover:!text-black hover:bg-white transition duration-300
+          ">
+          Keluar
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation (hidden by default) -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pt-4 pb-6 space-y-3">
+      <a href="dashboardAdmin.html" class="block text-white hover:opacity-80 transition">Beranda</a>
+      <a href="announcement.html" class="block text-white hover:opacity-80 transition">Announcement</a>
+      <a href="loginAdmin.html" id="logoutButtonMobile" class="block text-white hover:opacity-80transition">Keluar</a>
     </div>
   </nav>
 
@@ -66,6 +94,15 @@
         <select id="filterPaket" class="px-4 py-2 rounded-lg text-black">
           <option value="">Semua Paket</option>
         </select>
+
+        <select id="filterStatus" class="px-4 py-2 rounded-lg text-black">
+          <option value="">Semua Status</option>
+          <option value="aktif">Aktif</option>
+          <option value="tidak aktif">Tidak Aktif</option>
+          <option value="pending">Pending</option>
+          <option value="Request Pembatalan">Request Pembatalan</option>
+        </select>
+
 
       </div>
 
@@ -103,174 +140,9 @@
   <script>
     AOS.init({ duration: 1000, once: true });
 
-    let semuaData = {};
-
-    document.addEventListener("DOMContentLoaded", () => {
-      fetch("/api/pelanggan")
-        .then(res => res.json())
-        .then(data => {
-          semuaData = data || {};
-          isiFilter(data);
-          tampilkanData(Object.entries(data));
-        });
-
-      document.getElementById("searchInput").addEventListener("input", filterData);
-      document.getElementById("filterKota").addEventListener("change", filterData);
-      document.getElementById("filterPaket").addEventListener("change", filterData);
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
     });
-
-    function isiFilter(data) {
-      const kotaSet = new Set();
-      const paketSet = new Set();
-
-      Object.values(data).forEach(p => {
-        if (p.kota) kotaSet.add(p.kota);
-        if (p.paketInternet) paketSet.add(p.paketInternet);
-      });
-
-      kotaSet.forEach(kota => {
-        const opt = document.createElement("option");
-        opt.value = kota;
-        opt.textContent = kota;
-        filterKota.appendChild(opt);
-      });
-
-      paketSet.forEach(paket => {
-        const opt = document.createElement("option");
-        opt.value = paket;
-        opt.textContent = paket;
-        filterPaket.appendChild(opt);
-      });
-    }
-
-    function filterData() {
-      const query = document.getElementById("searchInput").value.toLowerCase();
-      const kota = document.getElementById("filterKota").value;
-      const paket = document.getElementById("filterPaket").value;
-
-      const hasil = Object.entries(semuaData).filter(([_, user]) => {
-        const cocokNama = user.nama?.toLowerCase().includes(query);
-        const cocokKota = !kota || user.kota === kota;
-        const cocokPaket = !paket || user.paketInternet === paket;
-        return cocokNama && cocokKota && cocokPaket;
-      });
-
-      tampilkanData(hasil);
-    }
-
-    function tampilkanData(list) {
-      const container = document.getElementById("adminCards");
-      container.innerHTML = "";
-
-      if (list.length === 0) {
-        container.innerHTML = "<p class='text-slate-400'>Tidak ada data yang cocok.</p>";
-        return;
-      }
-
-      list.forEach(([id, user]) => {
-        const card = document.createElement("div");
-        card.className = "glass flex flex-col md:flex-row justify-between items-start gap-6 p-6 rounded-xl border border-sky-500";
-
-        card.innerHTML = `
-          <div class="flex-1">
-            <h4 class="text-2xl font-bold mb-2">${user.nama}</h4>
-            <p><strong>Kota:</strong> ${user.kota || '-'}</p>
-            <p><strong>Paket:</strong> ${user.paketInternet}</p>
-            <p><strong>Durasi:</strong> ${user.durasiBerlangganan} bulan</p>
-            <p><strong>Total:</strong> ${user.totalHarga || '-'}</p>
-            <p><strong>Expiry:</strong> ${new Date(user.expiryDate).toLocaleDateString('id-ID')}</p>
-            <p><strong>Status:</strong> 
-              <span class="font-semibold ${user.status === 'aktif' ? 'text-green-400' : 'text-yellow-400'}">${user.status}</span>
-            </p>
-          </div>
-      <div class="flex flex-col gap-2 items-end md:items-center mt-4 md:mt-0">
-        <button class="btn btn-sm btn-gradient w-full md:w-auto" onclick="konfirmasiModal('aktifkan', '${id}')">Aktifkan</button>
-        <button class="btn btn-sm btn-danger w-full md:w-auto" onclick="konfirmasiModal('hapus', '${id}')">Hapus</button>
-      </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function updateStatus(id, status) {
-      fetch(`/api/pelanggan/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status })
-      })
-        .then(res => {
-          if (!res.ok) throw new Error("Gagal update status");
-          alert("Status berhasil diupdate!");
-          location.reload();
-        })
-        .catch(() => alert("Gagal update status"));
-    }
-
-    function hapusPelanggan(id) {
-      if (!confirm("Yakin ingin menghapus pelanggan ini?")) return;
-
-      fetch(`/api/pelanggan/${id}`, { method: "DELETE" })
-        .then(res => {
-          if (!res.ok) throw new Error("Gagal hapus data");
-          alert("Pelanggan berhasil dihapus");
-          location.reload();
-        })
-        .catch(() => alert("Gagal menghapus pelanggan"));
-    }
-
-    function konfirmasiModal(aksi, id) {
-  selectedAction = aksi;
-  selectedId = id;
-
-  const modalTitle = document.getElementById("confirmModalTitle");
-  const modalBody = document.getElementById("confirmModalBody");
-
-  const modalHeader = document.querySelector("#confirmModal .modal-header");
-  const modalContent = document.querySelector("#confirmModal .modal-content");
-  const modalBodyText = document.querySelector("#confirmModal .modal-body");
-  const confirmButton = document.getElementById("confirmModalOk");
-
-    // Reset kelas dulu
-  modalHeader.classList.remove("bg-sky-900", "bg-red-800");
-  modalContent.classList.remove("border-sky-700", "border-red-700");
-  modalBodyText.classList.remove("text-slate-300", "text-red-200");
-  confirmButton.classList.remove("btn-gradient", "bg-red-700", "hover:bg-red-800", "text-white");
-
-
-  // Set konten dan gaya berdasarkan aksi
-  if (aksi === "aktifkan") {
-    modalTitle.textContent = "Konfirmasi Aktifkan Langganan";
-    modalBody.textContent = "Apakah Anda yakin ingin mengaktifkan pelanggan ini?";
-
-    modalHeader.classList.add("bg-sky-900");
-    modalContent.classList.add("border-sky-700");
-    modalBodyText.classList.add("text-slate-300");
-
-    confirmButton.textContent = "Ya, Aktifkan";
-    confirmButton.classList.add("btn-gradient"); // biru seperti biasa
-  } else if (aksi === "hapus") {
-    modalTitle.textContent = "Konfirmasi Hapus Pelanggan";
-    modalBody.textContent = "Apakah Anda yakin ingin menghapus pelanggan ini? Tindakan ini tidak dapat dibatalkan.";
-
-    modalHeader.classList.add("bg-red-800");
-    modalContent.classList.add("border-red-700");
-    modalBodyText.classList.add("text-red-200");
-
-    confirmButton.textContent = "Ya, Hapus";
-    confirmButton.classList.add("bg-red-700", "hover:bg-red-800", "text-white");
-  }
-
-  const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
-  modal.show();
-
-  document.getElementById("confirmModalOk").onclick = () => {
-    if (selectedAction === "aktifkan") {
-      updateStatus(selectedId, "aktif");
-    } else if (selectedAction === "hapus") {
-      hapusPelanggan(selectedId);
-    }
-  };
-}
   </script>
 </body>
 </html>

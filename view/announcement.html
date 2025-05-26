@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manajemen Pengumuman - Admin IntraOne</title>
+  <link rel="shortcut icon" href="../media/logo-small.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../css/index.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="../js/announcement.js" defer></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #f1f5f9;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .btn-gradient {
+      background: linear-gradient(to right, #0ea5e9, #06b6d4);
+      color: white !important;
+      border: none;
+    }
+
+    .btn-gradient:hover {
+      opacity: 0.85;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="bg-sky-900 py-4 px-4 md:px-6 lg:px-8 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex items-center justify-between">
+      <a class="navbar-brand text-xl font-bold" href="#">
+        <img src="../media/logo-white.png" class="h-5 md:h-10" alt="Logo">
+      </a>
+
+      <button class="md:hidden focus:outline-none" id="menu-toggle">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+          </path>
+        </svg>
+      </button>
+
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="dashboardAdmin.html" class="text-white hover:opacity-80 transition">Beranda</a>
+        <a href="announcement.html" class="text-white font-semibold">Announcement</a>
+        <a href="loginAdmin.html" class="border border-white text-white px-4 py-2 rounded-md hover:!text-black hover:bg-white transition duration-300">Keluar</a>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden hidden px-4 pt-4 pb-6 space-y-3">
+      <a href="dashboardAdmin.html" class="block text-white hover:opacity-80 transition">Beranda</a>
+      <a href="announcement.html" class="block text-white hover:opacity-80 transition">Announcement</a>
+      <a href="loginAdmin.html" class="block text-white hover:opacity-80 transition">Keluar</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="py-16 px-4">
+    <div class="container">
+      <div class="glass p-8 md:p-12 text-center mx-auto max-w-4xl rounded-3xl" data-aos="fade-up">
+        <h2 class="text-4xl font-bold mb-4">Manajemen Pengumuman</h2>
+        <p class="text-slate-300">Tambahkan, cari, dan kelola pengumuman penting</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form & List -->
+  <section class="pb-16">
+    <div class="container px-4 max-w-3xl mx-auto space-y-8">
+      <!-- Form Pengumuman -->
+      <div class="glass p-6 rounded-xl border border-sky-500" data-aos="fade-up">
+        <form id="announcementForm" class="space-y-4">
+          <input type="text" id="title" placeholder="Judul Pengumuman" required
+            class="w-full px-4 py-2 rounded-lg text-black focus:outline-none" />
+          <textarea id="content" placeholder="Isi pengumuman" required
+            class="w-full px-4 py-2 rounded-lg text-black h-32 resize-none focus:outline-none"></textarea>
+          <button type="submit" class="btn-gradient px-6 py-2 rounded-lg">Buat Pengumuman</button>
+        </form>
+      </div>
+
+      <!-- Search -->
+      <input type="text" id="searchInput" placeholder="Cari pengumuman..."
+        class="w-full px-4 py-2 rounded-lg text-black focus:outline-none" data-aos="fade-up" />
+
+      <!-- List Pengumuman -->
+      <div id="announcementList" class="flex flex-col gap-6" data-aos="fade-up">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-slate-400 text-xs py-6 mt-12">
+    &copy; 2025 IntraOne. All Rights Reserved.
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+  </script>
+</body>
+</
