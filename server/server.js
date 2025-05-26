@@ -9,6 +9,8 @@ const db = require('./config/firebaseConfig');
 const pelangganRoutes = require('./routes/pelangganRoutes');
 const transaksiRoutes = require('./routes/transaksiRoutes');
 const tempRoutes = require('./routes/tempTransaksiRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const announcementRoutes = require('./routes/announcementRoutes');
 
 app.use(express.static(path.join(__dirname, '..')));
 app.use(express.static(path.join(__dirname, '..', 'view')));
@@ -25,6 +27,8 @@ app.use(bodyParser.json());
 app.use('/api/pelanggan', pelangganRoutes);
 app.use('/api/transaksi', transaksiRoutes);
 app.use('/api/tempTransaksi', tempRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/announcements', announcementRoutes);
 
 // Simple GET: Fetch data
 app.get('/api/jawa', async (req, res) => {
