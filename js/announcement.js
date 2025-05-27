@@ -33,35 +33,60 @@ async function loadAnnouncements(filter = '') {
 
   data
     .filter(item => item.title.toLowerCase().includes(filter))
-    .forEach(({ id, title, content, date }) => {
-      const waktu = new Date(date);
-      const tanggalFormatted = waktu.toLocaleDateString('id-ID', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      });
-      const jamFormatted = waktu.toLocaleTimeString('id-ID', {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
+    .forEach(({ id, title, content, date, statusAnnouncement }) => {
+  const waktu = new Date(date);
+  const tanggalFormatted = waktu.toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+  const jamFormatted = waktu.toLocaleTimeString('id-ID', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 
-      const card = document.createElement('div');
-      card.className = 'glass p-6 rounded-xl border border-sky-500 mb-4';
+  const statusBadge = statusAnnouncement === 'aktif'
+    ? '<span class="badge bg-success text-white">Aktif</span>'
+    : '<span class="badge bg-secondary text-white">Nonaktif</span>';
 
-      card.innerHTML = `
-        <div class="flex flex-col space-y-2">
-          <h4 class="text-2xl font-bold">${title}</h4>
-          <p class="text-slate-200">${content}</p>
-          <small class="text-sm text-slate-400">Dibuat pada ${tanggalFormatted} pukul ${jamFormatted} WIB</small>
-          <div class="flex justify-end">
-            <button onclick="deleteAnnouncement('${id}')" class="btn btn-sm btn-danger mt-2">Hapus</button>
-          </div>
-        </div>
-      `;
+  const card = document.createElement('div');
+  card.className = 'glass p-6 rounded-xl border border-sky-500 mb-4';
 
-      listDiv.appendChild(card);
-    });
+  card.innerHTML = `
+    <div class="flex flex-col space-y-2">
+      <h4 class="text-2xl font-bold">${title}</h4>
+      <p class="text-slate-200">${content}</p>
+      <small class="text-sm text-slate-400">Dibuat pada ${tanggalFormatted} pukul ${jamFormatted} WIB</small>
+      <div>Status: ${statusBadge}</div>
+      <div class="flex justify-between mt-2">
+        <button onclick="toggleStatus('${id}', '${statusAnnouncement}')" class="btn btn-sm btn-warning">Ubah Status</button>
+        <button onclick="deleteAnnouncement('${id}')" class="btn btn-sm btn-danger">Hapus</button>
+      </div>
+    </div>
+  `;
+
+  listDiv.appendChild(card);
+});
+
 }
+
+async function toggleStatus(id, currentStatus) {
+  const newStatus = currentStatus === 'aktif' ? 'nonaktif' : 'aktif';
+
+  const res = await fetch(`/api/announcements/${id}/statusAnnouncement`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ statusAnnouncement: newStatus })
+  });
+
+  const result = await res.json();
+  if (result.success) {
+    loadAnnouncements();
+  } else {
+    alert(result.message || 'Gagal mengubah status');
+  }
+}
+
 
 async function deleteAnnouncement(id) {
   const confirmed = confirm('Yakin ingin menghapus pengumuman ini?');
