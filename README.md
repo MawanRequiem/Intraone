@@ -73,24 +73,59 @@ All routes connect to Firebase to persist and fetch data in real time.
 
 ---
 
-## 📂 Project Structure
+## Project Structure (Tree View, Updated)
 
 ```
 Intraone-main/
-  ├── server/
-  │     ├── config/
-  │     ├── controllers/
-  │     ├── models/
-  │     ├── routes/
-  │     ├── server.js
-  │     ├── package.json
-  ├── public/
-  │     ├── css/
-  │     ├── js/
-  │     ├── html pages
-  ├── app.yaml
-  └── README.md
+├── .gitignore
+├── app.yaml
+├── package.json
+├── package-lock.json
+├── css/
+│   ├── activity8-1.css
+│   ├── bootstrap-grid.css
+│   ├── ...
+│   └── navigasi.css
+├── js/
+│   ├── announcement.js
+│   ├── confirmPN.js
+│   ├── ...
+│   └── upgradePaket.js
+├── media/
+│   ├── Mandiri.png
+│   ├── OVO.png
+│   ├── ...
+│   └── testi5.jpg
+├── view/
+│   ├── announcement.html
+│   ├── cekcoverage.html
+│   ├── confirmPN.html
+│   ├── confirmQR.html
+│   ├── confirmVA.html
+│   ├── dashboard.html
+│   ├── dashboardAdmin.html
+│   ├── index.html
+│   ├── kebijakanprivasi.html
+│   ├── kontakkami.html
+│   ├── login.html
+│   ├── loginAdmin.html
+│   ├── paket.html
+│   ├── payment.html
+│   ├── paymentupgrade.html
+│   ├── persyaratanlayanan.html
+│   ├── profil.html
+│   ├── registrasi.html
+│   ├── template.html
+│   └── upgradepaket.html
+└── server/
+    ├── config/
+    ├── controllers/
+    ├── models/
+    ├── routes/
+    ├── server.js
+    └── package.json
 ```
+
 
 ---
 
