@@ -188,8 +188,12 @@ The server runs on the port specified in `server.js`. Navigate to `http://localh
 
 ---
 
-## 📜 License
+## Project Example
 
-This project is open-source and available under the MIT License.
+### 1. Landing Page
 
-Enjoy using Intraone!
+### 2. Register Page
+
+### 3. User Dashboard Page
+
+### 4. Admin Dashboard Page
