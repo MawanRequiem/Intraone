@@ -196,12 +196,12 @@ The server runs on the port specified in `server.js`. Navigate to `http://localh
 
 ### 2. Register Page
 
-![Landing Page](./assets/Intraone_Subscribe.jpeg)
+![Landing Page](./assets/Intraone_Subscribe.png)
 
 ### 3. User Dashboard Page
 
-![Landing Page](./assets/Intraone_User_Dashboard.jpeg)
+![Landing Page](./assets/Intraone_User_Dashboard.png)
 
 ### 4. Admin Dashboard Page
 
-![Landing Page](./assets/Intraone_Admin_Dashboard.jpeg)
+![Landing Page](./assets/Intraone_Admin_Dashboard.png)
