@@ -1,6 +1,6 @@
 # Intraone ISP Website
 
-![Express.js](https://img.shields.io/badge/Express.js-4.x-brightgreen) ![Firebase](https://img.shields.io/badge/Firebase-Realtime%20DB-orange) ![GAE](https://img.shields.io/badge/Google%20App%20Engine-Deployed-blue)
+![Express.js](https://img.shields.io/badge/Express.js-4.x-brightgreen?logo=express\&logoColor=white) ![Firebase](https://img.shields.io/badge/Firebase-RealtimeDB-orange?logo=firebase\&logoColor=white) ![GAE](https://img.shields.io/badge/Google%20App%20Engine-Deployed-blue)
 
 Welcome to **Intraone**, a modern internet service provider (ISP) platform that makes managing internet subscriptions seamless and intuitive for both customers and administrators. Built for scalability and ease of maintenance, Intraone combines powerful backend technology with a user-friendly frontend interface.
 
